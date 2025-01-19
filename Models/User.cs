@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace cyclefriends.Models;
+namespace WebLab.Models;
 
 public class User
 {

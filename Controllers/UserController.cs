@@ -1,4 +1,4 @@
-using cyclefriends.Models;
+using WebLab.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebLab.Data;
