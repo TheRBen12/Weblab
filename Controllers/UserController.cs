@@ -4,17 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using WebLab.Data;
 
 namespace WebLab.Controllers;
-
-[ApiController]
-[Route("api/users")]
-public class UserController(ApplicationDbContext context): ControllerBase
+public class UserController(ApplicationDbContext context): BaseController
 {
     public readonly ApplicationDbContext _context = context;
 
     [HttpGet ("{email}")]
     public async Task<ActionResult<User>> GetUser(string email)
     {
-        var user = await context.Users.FindAsync(email);
+        var user = await context.Users.FirstOrDefaultAsync(user => user.Email == email);
         if (user != null)
         {
             return Ok(user);
