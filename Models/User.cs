@@ -19,6 +19,7 @@ public class User
 
     [Required]
     public required string Group { get; set; }
-
-    public int CurrentExperimentPosition { get; set; } = 0;
+    
+    [Required]
+    public int CurrentExperimentPosition { get; set; }
 }

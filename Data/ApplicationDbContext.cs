@@ -1,6 +1,5 @@
 using WebLab.Models;
 using Microsoft.EntityFrameworkCore;
-using WebLab.Models;
 
 namespace WebLab.Data;
 
@@ -13,4 +12,5 @@ public class ApplicationDbContext : DbContext
 
      public DbSet<User> Users { get; set; }
      public DbSet<Experiment> Experiments { get; set; }
+     public DbSet<UserSetting> UserSettings { get; set; }
 }
