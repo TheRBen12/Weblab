@@ -13,4 +13,9 @@ public class UserSetting
     [Required] public bool ProgressiveVisualizationExperimentTest { get; set; }
 
     [Required] public bool AutoStartNextExperiment { get; set; }
+    
+    [Required] public DateTime Created { get; set; }
+    
+    
+    
 }

@@ -23,18 +23,5 @@ public class UserController(ApplicationDbContext context) : BaseController
             return NotFound("User was not found");
         }
     }
-
-    [HttpPost("setting")]
-    public async Task<ActionResult<UserSetting>> saveSetting(UserSettingDTO userSettingDto)
-    {
-        var userSetting = new UserSetting()
-        {
-            ProgressiveVisualizationExperiment = userSettingDto.ProgressiveVisualizationExperiment,
-            ProgressiveVisualizationExperimentTest = userSettingDto.ProgressiveVisualizationExperimentTest,
-            AutoStartNextExperiment = userSettingDto.AutoStartNextExperiment
-        };
-        context.UserSettings.Add(userSetting);
-        await context.SaveChangesAsync();
-        return userSetting;
-    }
+    
 }
