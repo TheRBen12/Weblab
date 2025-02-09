@@ -8,9 +8,11 @@ public class Experiment
     public int Id { get; set; }
 
     [Required]
-    public string name { get; set;  }
+    public string Name { get; set;  }
 
     [Required] 
-    public string state { get; set; }
+    public string State { get; set; }
+
+    [Required] public int Position { get; set; }
 
 }
