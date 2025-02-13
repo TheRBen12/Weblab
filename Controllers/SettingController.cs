@@ -12,7 +12,7 @@ public class SettingController(ApplicationDbContext context) : BaseController
     public readonly ApplicationDbContext _context = context;
 
     [HttpPost("new")]
-    public async Task<ActionResult<UserSetting>> saveSetting(UserSettingDTO userSettingDto)
+    public async Task<ActionResult<UserSetting>> usSaveSetting(UserSettingDTO userSettingDto)
     {
         var user = await context.Users.FirstOrDefaultAsync(user => user.Id == userSettingDto.UserID);
 
