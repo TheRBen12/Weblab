@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebLab.Data;
+using WebLab.Interfaces;
+using WebLab.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+builder.Services.AddSingleton<ISettingService, SettingService>();
 builder.Services.AddCors();
 
 var app = builder.Build();
