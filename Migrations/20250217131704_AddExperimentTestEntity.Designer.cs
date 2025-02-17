@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250217131704_AddExperimentTestEntity")]
+    partial class AddExperimentTestEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,9 +64,6 @@ namespace WebLab.Migrations
                     b.Property<int>("EstimatedExecutionTime")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ExperimentId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -76,8 +76,6 @@ namespace WebLab.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ExperimentId");
 
                     b.ToTable("ExperimentTests");
                 });
@@ -142,17 +140,6 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserSettings");
-                });
-
-            modelBuilder.Entity("WebLab.Models.ExperimentTest", b =>
-                {
-                    b.HasOne("WebLab.Models.Experiment", "Experiment")
-                        .WithMany()
-                        .HasForeignKey("ExperimentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Experiment");
                 });
 
             modelBuilder.Entity("WebLab.Models.UserSetting", b =>
