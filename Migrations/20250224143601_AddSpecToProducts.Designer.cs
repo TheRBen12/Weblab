@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250224143601_AddSpecToProducts")]
+    partial class AddSpecToProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,12 +209,6 @@ namespace WebLab.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Arbeitsspeicher")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Festplatte")
-                        .HasColumnType("integer");
-
                     b.Property<string>("GraphicCardModel")
                         .IsRequired()
                         .HasColumnType("text");
@@ -243,9 +240,20 @@ namespace WebLab.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("Ram")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StorageCapacity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("Notebooks");
                 });
@@ -373,10 +381,6 @@ namespace WebLab.Migrations
 
                     b.Property<int>("ProductPropertyId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -528,7 +532,15 @@ namespace WebLab.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebLab.Models.ProductType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Product");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("WebLab.Models.PersonalComputer", b =>
@@ -564,7 +576,7 @@ namespace WebLab.Migrations
             modelBuilder.Entity("WebLab.Models.ProductSpecification", b =>
                 {
                     b.HasOne("WebLab.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Specifications")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -598,6 +610,11 @@ namespace WebLab.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebLab.Models.Product", b =>
+                {
+                    b.Navigation("Specifications");
                 });
 
             modelBuilder.Entity("WebLab.Models.ProductType", b =>

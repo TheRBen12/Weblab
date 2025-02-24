@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250224154334_Change")]
+    partial class Change
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -368,10 +371,13 @@ namespace WebLab.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductPropertyId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ProductPropertyId")
+                    b.Property<int>("ProductTypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ProductTypeId1")
                         .HasColumnType("integer");
 
                     b.Property<string>("Value")
@@ -380,9 +386,11 @@ namespace WebLab.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("ProductPropertyId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("ProductTypeId1");
 
                     b.ToTable("ProductSpecifications");
                 });
@@ -563,21 +571,25 @@ namespace WebLab.Migrations
 
             modelBuilder.Entity("WebLab.Models.ProductSpecification", b =>
                 {
-                    b.HasOne("WebLab.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebLab.Models.ProductProperty", "ProductProperty")
                         .WithMany()
                         .HasForeignKey("ProductPropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.HasOne("WebLab.Models.Product", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebLab.Models.ProductType", null)
+                        .WithMany("Specifications")
+                        .HasForeignKey("ProductTypeId1");
 
                     b.Navigation("ProductProperty");
+
+                    b.Navigation("ProductType");
                 });
 
             modelBuilder.Entity("WebLab.Models.ProductType", b =>
@@ -602,6 +614,8 @@ namespace WebLab.Migrations
 
             modelBuilder.Entity("WebLab.Models.ProductType", b =>
                 {
+                    b.Navigation("Specifications");
+
                     b.Navigation("SubTypes");
                 });
 #pragma warning restore 612, 618
