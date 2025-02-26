@@ -12,8 +12,8 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250224113955_AddProductType")]
-    partial class AddProductType
+    [Migration("20250225124337_RemoveTypeProperties")]
+    partial class RemoveTypeProperties
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,10 +123,6 @@ namespace WebLab.Migrations
                     b.Property<int>("Length")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ProductCategory")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
@@ -138,6 +134,9 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Weight")
                         .HasColumnType("integer");
 
@@ -148,7 +147,58 @@ namespace WebLab.Migrations
 
                     b.HasIndex("ProductId");
 
+                    b.HasIndex("TypeId");
+
                     b.ToTable("KeyPads");
+                });
+
+            modelBuilder.Entity("WebLab.Models.Mixer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Colr")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Function")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Lenght")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("OriginCountry")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Power")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Volume")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Mixers");
                 });
 
             modelBuilder.Entity("WebLab.Models.Notebook", b =>
@@ -158,6 +208,12 @@ namespace WebLab.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Arbeitsspeicher")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Festplatte")
+                        .HasColumnType("integer");
 
                     b.Property<string>("GraphicCardModel")
                         .IsRequired()
@@ -187,17 +243,7 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ProductCategory")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Ram")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("StorageCapacity")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -259,9 +305,14 @@ namespace WebLab.Migrations
                     b.Property<int>("StorageCapacity")
                         .HasColumnType("integer");
 
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("PersonalComputers");
                 });
@@ -285,13 +336,58 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Type")
+                    b.Property<int>("TypeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("WebLab.Models.ProductProperty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("ProductProperties");
+                });
+
+            modelBuilder.Entity("WebLab.Models.ProductSpecification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductPropertyId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ProductPropertyId");
+
+                    b.ToTable("ProductSpecifications");
                 });
 
             modelBuilder.Entity("WebLab.Models.ProductType", b =>
@@ -306,12 +402,7 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("ParentTypeId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentTypeId");
 
                     b.ToTable("ProductTypes");
                 });
@@ -397,7 +488,34 @@ namespace WebLab.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebLab.Models.ProductType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Product");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("WebLab.Models.Mixer", b =>
+                {
+                    b.HasOne("WebLab.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebLab.Models.ProductType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("WebLab.Models.Notebook", b =>
@@ -419,16 +537,45 @@ namespace WebLab.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WebLab.Models.ProductType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Product");
+
+                    b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("WebLab.Models.ProductType", b =>
+            modelBuilder.Entity("WebLab.Models.Product", b =>
                 {
-                    b.HasOne("WebLab.Models.ProductType", "ParentType")
-                        .WithMany("SubTypes")
-                        .HasForeignKey("ParentTypeId");
+                    b.HasOne("WebLab.Models.ProductType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ParentType");
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("WebLab.Models.ProductSpecification", b =>
+                {
+                    b.HasOne("WebLab.Models.Product", "Product")
+                        .WithMany("Specifications")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebLab.Models.ProductProperty", "ProductProperty")
+                        .WithMany()
+                        .HasForeignKey("ProductPropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ProductProperty");
                 });
 
             modelBuilder.Entity("WebLab.Models.UserSetting", b =>
@@ -442,9 +589,9 @@ namespace WebLab.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebLab.Models.ProductType", b =>
+            modelBuilder.Entity("WebLab.Models.Product", b =>
                 {
-                    b.Navigation("SubTypes");
+                    b.Navigation("Specifications");
                 });
 #pragma warning restore 612, 618
         }

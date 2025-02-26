@@ -28,6 +28,4 @@ public class ApplicationDbContext : DbContext
     public DbSet<ProductProperty> ProductProperties { get; set; }
     
     public DbSet<ProductSpecification> ProductSpecifications { get; set; }
-
-
 }
