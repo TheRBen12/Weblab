@@ -10,6 +10,46 @@ namespace WebLab.Controllers;
 public class ProductController(ApplicationDbContext context, IProductService productService) : BaseController
 {
     private readonly IProductService _productService = productService;
+    
+
+    [HttpGet("find")]
+    public async Task<ProductDTO> GetProductById(int productId)
+    {
+        var product = await context.Products.Include(product => product.Type)
+            .Include(product => product.Specifications)
+            .ThenInclude(specification => specification.ProductProperty)
+            .FirstOrDefaultAsync(product => product.Id == productId);
+        
+        var productDto = new ProductDTO()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Type = product.Type.Name,
+            Trademark = product.Trademark,
+            Price = product.Price,
+            Specifications = product.Specifications.Select(s => new ProductSpecificationDTO()
+            {
+                PropertyName = s.ProductProperty.Name,
+                Value = s.Value
+            }).ToList()
+        };
+
+        return productDto;
+    }
+    
+    
+    [HttpGet("all")]
+    public async Task<IEnumerable<ProductDTO>> GetProducts(int productId)
+    {
+        var products = await context.Products.Include(product => product.Type)
+            .Include(product => product.Specifications)
+            .ThenInclude(specification => specification.ProductProperty).ToListAsync();
+        
+        var productDtos = productService.TransformProductListToDtoList(products);
+
+        return productDtos;
+    }
+
 
     [HttpGet]
     public async Task<IEnumerable<ProductDTO>> GetProductsByCategory(string category)
@@ -166,6 +206,7 @@ public class ProductController(ApplicationDbContext context, IProductService pro
         var randomProducts = await context.Products.Include(product => product.Specifications).
             ThenInclude(spec => spec.ProductProperty).
             Include(product => product.Type)
+            .Where(product => product.Type.Name == "Keypad")
             .OrderBy(p => Guid.NewGuid())
             .Take(3)
             .ToListAsync();
