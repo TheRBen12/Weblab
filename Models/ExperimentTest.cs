@@ -20,5 +20,7 @@ public class ExperimentTest
     
     [Required] public string HeadDetailDescription { get; set; }
     
+    [Required] public string GoalInstruction { get; set; }
+
     [Required] public Experiment Experiment { get; set; }
 }
