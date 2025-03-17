@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250315131157_UpdateUserEntityAndAddedUserBehaviourEntity")]
+    partial class UpdateUserEntityAndAddedUserBehaviourEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +77,6 @@ namespace WebLab.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("NumberExperimentTest")
-                        .HasColumnType("integer");
 
                     b.Property<int>("Position")
                         .HasColumnType("integer");
@@ -509,9 +509,6 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("FinishedUserExperienceAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Group")
                         .IsRequired()
                         .HasColumnType("text");
@@ -524,7 +521,7 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("StartedUserExperienceAt")
+                    b.Property<DateTime>("StartedUserExperienceAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
@@ -540,31 +537,28 @@ namespace WebLab.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<bool?>("ClickedOnHelp")
+                    b.Property<bool>("ClickedOnHelp")
                         .HasColumnType("boolean");
 
-                    b.Property<bool?>("ClickedOnHint")
+                    b.Property<bool>("ClickedOnHint")
                         .HasColumnType("boolean");
 
-                    b.Property<bool?>("ClickedOnSettings")
+                    b.Property<bool>("ClickedOnSettings")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("NumberClickedOnHelp")
+                    b.Property<int>("NumberClickedOnHelp")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("NumberClickedOnHint")
+                    b.Property<bool>("NumberClickedOnHint")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("NumberOnSettings")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("NumberClickedOnSettings")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("TimeReadingWelcomeModal")
+                    b.Property<int>("TimeReadingWelcomeModel")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("WelcomeModalTipIndex")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

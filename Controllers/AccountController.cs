@@ -12,9 +12,13 @@ public class AccountController(ApplicationDbContext context): BaseController
     [HttpGet("login")]
     public async Task<ActionResult<User>> Login(string email)
     {
-        var user = await context.Users.FirstOrDefaultAsync(user => user.Email == email);
+        var user = await context.Users.Where(user => user.Email == email).FirstOrDefaultAsync();
         if (user != null)
         {
+            user.StartedUserExperienceAt = DateTime.UtcNow;
+            user = context.Users.Update(user).Entity;
+            await context.SaveChangesAsync();
+            
             return Ok(user);
         }
         else

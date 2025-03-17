@@ -28,4 +28,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<ProductProperty> ProductProperties { get; set; }
     
     public DbSet<ProductSpecification> ProductSpecifications { get; set; }
+    
+    public DbSet<DeletedMail> DeletedMails { get; set; }
+    public DbSet<Mail> Mails { get; set; }
+    
+    public DbSet<UserBehaviour> UserBehaviours { get; set; }
 }

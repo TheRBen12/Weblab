@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250309173550_AddRemovePos")]
+    partial class AddRemovePos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace WebLab.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WebLab.Models.DeletedMail", b =>
+            modelBuilder.Entity("WebLab.Models.DeletedEmail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +63,7 @@ namespace WebLab.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeletedMails");
+                    b.ToTable("DeletedEmails");
                 });
 
             modelBuilder.Entity("WebLab.Models.Experiment", b =>
@@ -74,9 +77,6 @@ namespace WebLab.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("NumberExperimentTest")
-                        .HasColumnType("integer");
 
                     b.Property<int>("Position")
                         .HasColumnType("integer");
@@ -97,10 +97,6 @@ namespace WebLab.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Configuration")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -199,39 +195,6 @@ namespace WebLab.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("KeyPads");
-                });
-
-            modelBuilder.Entity("WebLab.Models.Mail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Receiver")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Sender")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Mails");
                 });
 
             modelBuilder.Entity("WebLab.Models.Mixer", b =>
@@ -509,9 +472,6 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("FinishedUserExperienceAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Group")
                         .IsRequired()
                         .HasColumnType("text");
@@ -524,54 +484,9 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("StartedUserExperienceAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("WebLab.Models.UserBehaviour", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<bool?>("ClickedOnHelp")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool?>("ClickedOnHint")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool?>("ClickedOnSettings")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("NumberClickedOnHelp")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("NumberClickedOnHint")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("NumberClickedOnSettings")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("TimeReadingWelcomeModal")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("WelcomeModalTipIndex")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserBehaviours");
                 });
 
             modelBuilder.Entity("WebLab.Models.UserSetting", b =>
@@ -604,7 +519,7 @@ namespace WebLab.Migrations
                     b.ToTable("UserSettings");
                 });
 
-            modelBuilder.Entity("WebLab.Models.DeletedMail", b =>
+            modelBuilder.Entity("WebLab.Models.DeletedEmail", b =>
                 {
                     b.HasOne("WebLab.Models.User", "User")
                         .WithMany()
@@ -731,17 +646,6 @@ namespace WebLab.Migrations
                         .HasForeignKey("ParentTypeId");
 
                     b.Navigation("ParentType");
-                });
-
-            modelBuilder.Entity("WebLab.Models.UserBehaviour", b =>
-                {
-                    b.HasOne("WebLab.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebLab.Models.UserSetting", b =>

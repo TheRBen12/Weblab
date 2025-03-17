@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250316143839_ChangeNullable_1")]
+    partial class ChangeNullable_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +77,6 @@ namespace WebLab.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("NumberExperimentTest")
-                        .HasColumnType("integer");
 
                     b.Property<int>("Position")
                         .HasColumnType("integer");
@@ -509,9 +509,6 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("FinishedUserExperienceAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Group")
                         .IsRequired()
                         .HasColumnType("text");
@@ -555,16 +552,13 @@ namespace WebLab.Migrations
                     b.Property<int?>("NumberClickedOnHint")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("NumberClickedOnSettings")
+                    b.Property<int?>("NumberOnSettings")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TimeReadingWelcomeModal")
+                    b.Property<int?>("TimeReadingWelcomeModel")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("WelcomeModalTipIndex")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

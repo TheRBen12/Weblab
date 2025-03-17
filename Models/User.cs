@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace WebLab.Models;
 
@@ -22,4 +23,9 @@ public class User
     
     [Required]
     public int CurrentExperimentPosition { get; set; }
+    
+    public  DateTimeOffset? StartedUserExperienceAt { get; set; }
+    
+    public  DateTimeOffset? FinishedUserExperienceAt { get; set; }
+
 }

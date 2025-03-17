@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WebLab;
 using WebLab.Data;
 using WebLab.Interfaces;
 using WebLab.Services;
@@ -14,6 +15,9 @@ builder.Services.AddSingleton<ISettingService, SettingService>();
 builder.Services.AddSingleton<IProductService, ProductService>();
 builder.Services.AddCors();
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +26,12 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    DbInitializer.Seed(dbContext);
 }
 
 

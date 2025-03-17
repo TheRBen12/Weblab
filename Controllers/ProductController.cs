@@ -17,8 +17,8 @@ public class ProductController(ApplicationDbContext context, IProductService pro
     {
         var product = await context.Products.Include(product => product.Type)
             .Include(product => product.Specifications)
-            .ThenInclude(specification => specification.ProductProperty)
-            .FirstOrDefaultAsync(product => product.Id == productId);
+            .ThenInclude(specification => specification.ProductProperty).Where(product => product.Id == productId)
+            .FirstOrDefaultAsync();
         
         var productDto = new ProductDTO()
         {
@@ -101,6 +101,53 @@ public class ProductController(ApplicationDbContext context, IProductService pro
        
         return [];
     }
+    
+    
+    
+    
+    [HttpGet("all/subcategories")]
+    public async Task<IEnumerable<ProductType>> GetAllSubCategoryByParentCategory(string category)
+    {
+        List<ProductType> types = new List<ProductType>();
+        List<ProductType> stack = new List<ProductType>();
+
+        var parentType = await context.ProductTypes
+            .FirstOrDefaultAsync(type => type.Name == category);
+
+        var allTypes = await context.ProductTypes.Where(type =>  type.ParentType != null)
+            .Include(type => type.ParentType).ToListAsync();
+        
+
+        for (int i = 0; i < allTypes.Count; i++)
+        {
+            var currentType = allTypes[i];
+            if (currentType.ParentType.Id == parentType.Id || currentType.Name == category)
+            {
+                types.Add(currentType);
+                stack.Add(currentType);
+            }
+        }
+
+        while (stack.Any())
+        {
+            var subParentType = stack.Last();
+            for (int i = 0; i < allTypes.Count; i++)
+            {
+                var currentType = allTypes[i];
+                if (currentType.ParentType.Id == subParentType.Id)
+                {
+                    types.Add(currentType);
+                }
+            }
+            stack.Remove(subParentType);
+            
+        }
+        
+       
+        return types;
+    }
+
+    
 
 
     [HttpGet("daily-offer")]

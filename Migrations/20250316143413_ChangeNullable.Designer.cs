@@ -12,8 +12,8 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250224143601_AddSpecToProducts")]
-    partial class AddSpecToProducts
+    [Migration("20250316143413_ChangeNullable")]
+    partial class ChangeNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,47 @@ namespace WebLab.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("WebLab.Models.DeletedMail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Receiver")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Sender")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("DeletedMails");
+                });
 
             modelBuilder.Entity("WebLab.Models.Experiment", b =>
                 {
@@ -57,6 +98,10 @@ namespace WebLab.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Configuration")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -70,6 +115,10 @@ namespace WebLab.Migrations
 
                     b.Property<int>("ExperimentId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("GoalInstruction")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("HeadDetailDescription")
                         .IsRequired()
@@ -152,6 +201,39 @@ namespace WebLab.Migrations
                     b.ToTable("KeyPads");
                 });
 
+            modelBuilder.Entity("WebLab.Models.Mail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Receiver")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Sender")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Mails");
+                });
+
             modelBuilder.Entity("WebLab.Models.Mixer", b =>
                 {
                     b.Property<int>("Id")
@@ -209,6 +291,12 @@ namespace WebLab.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("Arbeitsspeicher")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Festplatte")
+                        .HasColumnType("integer");
+
                     b.Property<string>("GraphicCardModel")
                         .IsRequired()
                         .HasColumnType("text");
@@ -240,20 +328,9 @@ namespace WebLab.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Ram")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("StorageCapacity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TypeId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("TypeId");
 
                     b.ToTable("Notebooks");
                 });
@@ -382,6 +459,10 @@ namespace WebLab.Migrations
                     b.Property<int>("ProductPropertyId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
@@ -440,9 +521,51 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTimeOffset?>("StartedUserExperienceAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("WebLab.Models.UserBehaviour", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("ClickedOnHelp")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("ClickedOnHint")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("ClickedOnSettings")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("NumberClickedOnHelp")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("NumberClickedOnHint")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("NumberOnSettings")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TimeReadingWelcomeModel")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserBehaviours");
                 });
 
             modelBuilder.Entity("WebLab.Models.UserSetting", b =>
@@ -473,6 +596,17 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserSettings");
+                });
+
+            modelBuilder.Entity("WebLab.Models.DeletedMail", b =>
+                {
+                    b.HasOne("WebLab.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebLab.Models.ExperimentTest", b =>
@@ -532,15 +666,7 @@ namespace WebLab.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebLab.Models.ProductType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Product");
-
-                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("WebLab.Models.PersonalComputer", b =>
@@ -595,10 +721,21 @@ namespace WebLab.Migrations
             modelBuilder.Entity("WebLab.Models.ProductType", b =>
                 {
                     b.HasOne("WebLab.Models.ProductType", "ParentType")
-                        .WithMany("SubTypes")
+                        .WithMany()
                         .HasForeignKey("ParentTypeId");
 
                     b.Navigation("ParentType");
+                });
+
+            modelBuilder.Entity("WebLab.Models.UserBehaviour", b =>
+                {
+                    b.HasOne("WebLab.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebLab.Models.UserSetting", b =>
@@ -615,11 +752,6 @@ namespace WebLab.Migrations
             modelBuilder.Entity("WebLab.Models.Product", b =>
                 {
                     b.Navigation("Specifications");
-                });
-
-            modelBuilder.Entity("WebLab.Models.ProductType", b =>
-                {
-                    b.Navigation("SubTypes");
                 });
 #pragma warning restore 612, 618
         }

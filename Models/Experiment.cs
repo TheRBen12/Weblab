@@ -15,4 +15,6 @@ public class Experiment
 
     [Required] public int Position { get; set; }
 
+    [Required] public int NumberExperimentTest { get; set; }
+
 }

@@ -17,10 +17,12 @@ public class ExperimentTest
     [Required] public string Description { get; set; }
 
     [Required] public string DetailDescription { get; set; }
-    
+
     [Required] public string HeadDetailDescription { get; set; }
-    
+
     [Required] public string GoalInstruction { get; set; }
 
     [Required] public Experiment Experiment { get; set; }
+
+    public string Configuration { get; set; }
 }
