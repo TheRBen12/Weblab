@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250318154027_AddExperimentTestExecutions")]
+    partial class AddExperimentTestExecutions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,21 +153,22 @@ namespace WebLab.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("ExecutionTime")
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(55)
+                        .HasColumnType("character varying(55)");
+
+                    b.Property<double>("ExecutionTime")
                         .HasColumnType("double precision");
 
                     b.Property<int>("ExperimentTestId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset?>("FinishedExecutionAt")
+                    b.Property<DateTimeOffset>("FinishedExecutionAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("StartedExecutionAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -176,6 +180,10 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ExperimentTestExecutions");
+
+                    b.HasDiscriminator().HasValue("ExperimentTestExecution");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("WebLab.Models.KeyPad", b =>
@@ -530,39 +538,6 @@ namespace WebLab.Migrations
                     b.ToTable("ProductTypes");
                 });
 
-            modelBuilder.Entity("WebLab.Models.RecallRecognitionExperimentExecution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CategoryLinkClickDates")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("ClickedOnSearchBar")
-                        .HasColumnType("boolean");
-
-                    b.Property<double?>("ExecutionTime")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("ExperimentTestExecutionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FailedClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("NumberClicks")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExperimentTestExecutionId");
-
-                    b.ToTable("RecallRecognitionExperimentExecutions");
-                });
-
             modelBuilder.Entity("WebLab.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -671,6 +646,27 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserSettings");
+                });
+
+            modelBuilder.Entity("WebLab.Models.RecallRecognitionExperimentExecution", b =>
+                {
+                    b.HasBaseType("WebLab.Models.ExperimentTestExecution");
+
+                    b.Property<string>("CategoryLinkClickDates")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("ClickedOnSearchBar")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("ExperimentTestExecutionId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FailedClicks")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("ExperimentTestExecutionId");
+
+                    b.HasDiscriminator().HasValue("RecallRecognitionExperimentExecution");
                 });
 
             modelBuilder.Entity("WebLab.Models.DeletedMail", b =>
@@ -821,17 +817,6 @@ namespace WebLab.Migrations
                     b.Navigation("ParentType");
                 });
 
-            modelBuilder.Entity("WebLab.Models.RecallRecognitionExperimentExecution", b =>
-                {
-                    b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
-                        .WithMany()
-                        .HasForeignKey("ExperimentTestExecutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ExperimentTestExecution");
-                });
-
             modelBuilder.Entity("WebLab.Models.UserBehaviour", b =>
                 {
                     b.HasOne("WebLab.Models.User", "User")
@@ -852,6 +837,17 @@ namespace WebLab.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebLab.Models.RecallRecognitionExperimentExecution", b =>
+                {
+                    b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
+                        .WithMany()
+                        .HasForeignKey("ExperimentTestExecutionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExperimentTestExecution");
                 });
 
             modelBuilder.Entity("WebLab.Models.Product", b =>

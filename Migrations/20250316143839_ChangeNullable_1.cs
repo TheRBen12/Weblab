@@ -41,8 +41,7 @@ namespace WebLab.Migrations
                 table: "UserBehaviours",
                 type: "boolean",
                 nullable: true);
-
-
+            
         }
 
         /// <inheritdoc />

@@ -39,8 +39,8 @@ public class UserController(ApplicationDbContext context, IMapper mapper) : Base
     [HttpPut("behaviour/update")]
     public async Task<ActionResult<UserBehaviour>> UpdateUserBehaviour([FromBody] UserBehaviourDTO userBehaviourDto)
     {
-        var user = mapper.Map<UserBehaviour>(userBehaviourDto);
-        var updatedUserBehaviour = context.UserBehaviours.Update(user);
+        var userBehaviour = mapper.Map<UserBehaviour>(userBehaviourDto);
+        var updatedUserBehaviour = context.UserBehaviours.Update(userBehaviour);
         await context.SaveChangesAsync();
         var updatedUserBehaviourDto = mapper.Map<UserBehaviourDTO>(updatedUserBehaviour.Entity);
         return Ok(updatedUserBehaviourDto);

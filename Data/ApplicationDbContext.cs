@@ -33,4 +33,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Mail> Mails { get; set; }
     
     public DbSet<UserBehaviour> UserBehaviours { get; set; }
+
+    public DbSet<ExperimentTestExecution> ExperimentTestExecutions { get; set; }
+
+    public DbSet<RecallRecognitionExperimentExecution> RecallRecognitionExperimentExecutions { get; set; }
 }

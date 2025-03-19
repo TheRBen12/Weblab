@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250318194829_AddExecutionTimeToRecallExperimentExec")]
+    partial class AddExecutionTimeToRecallExperimentExec
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,13 +153,13 @@ namespace WebLab.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("ExecutionTime")
+                    b.Property<double>("ExecutionTime")
                         .HasColumnType("double precision");
 
                     b.Property<int>("ExperimentTestId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset?>("FinishedExecutionAt")
+                    b.Property<DateTimeOffset>("FinishedExecutionAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("StartedExecutionAt")
@@ -544,16 +547,13 @@ namespace WebLab.Migrations
                     b.Property<bool>("ClickedOnSearchBar")
                         .HasColumnType("boolean");
 
-                    b.Property<double?>("ExecutionTime")
-                        .HasColumnType("double precision");
+                    b.Property<int?>("ExecutionTime")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ExperimentTestExecutionId")
                         .HasColumnType("integer");
 
                     b.Property<int>("FailedClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("NumberClicks")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
