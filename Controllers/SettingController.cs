@@ -38,7 +38,7 @@ public class SettingController(ApplicationDbContext context, ISettingService set
     }
 
     [HttpGet]
-    public async Task<ActionResult<UserSettingDTO>> LastSetting(int userId)
+    public async Task<ActionResult<UserSettingDTO>> GetLastSetting(int userId)
     {
         var user = await context.Users.FindAsync(userId);
         if (user == null)
@@ -66,4 +66,23 @@ public class SettingController(ApplicationDbContext context, ISettingService set
         };
         return userSettingDto;
     }
+
+
+    [HttpPost("navigation/new")]
+    public async Task<ActionResult<NavigationSelection> >SaveNavigationSetting(NavigationSelection navigationSelection)
+    {
+        var result = await context.NavigationSelections.AddAsync(navigationSelection);
+        await context.SaveChangesAsync();
+        return result.Entity;
+
+    }
+    
+    [HttpGet("navigation/find")]
+    public async Task<ActionResult<NavigationSelection>> GetNavigationSetting(int userId)
+    {
+        var result = await context.NavigationSelections.Where(setting => setting.UserId == userId).FirstOrDefaultAsync();
+        return result;
+
+    }
+    
 }

@@ -50,7 +50,13 @@ public class UserController(ApplicationDbContext context, IMapper mapper) : Base
     [HttpPost("behaviour/create")]
     public async Task<ActionResult<UserBehaviourDTO>> CreateUserBehaviour([FromBody] UserBehaviourDTO userBehaviour)
     {
-        var user = context.Users.FindAsync(userBehaviour.User);
+        
+        var user = await context.Users.FindAsync(userBehaviour.User);
+        var existingUserBehaviour = await context.UserBehaviours.Where(behaviour => behaviour.User == user).FirstOrDefaultAsync();
+        if (existingUserBehaviour != null)
+        {
+            return mapper.Map<UserBehaviourDTO>(existingUserBehaviour);
+        }
         var newUserBehaviour = new UserBehaviour()
         {
             ClickedOnHelp = userBehaviour.ClickedOnHelp,
@@ -60,8 +66,9 @@ public class UserController(ApplicationDbContext context, IMapper mapper) : Base
             NumberClickedOnHelp = userBehaviour.NumberClickedOnHelp,
             TimeReadingWelcomeModal = userBehaviour.TimeReadingWelcomeModal,
             NumberClickedOnHint = 0,
-            User = user.Result,
+            User = user,
             WelcomeModalTipIndex = userBehaviour.WelcomeModalTipIndex,
+            LastUpdatedAt = userBehaviour.LastUpdatedAt
         };
 
         var updatedUserBehaviour = context.UserBehaviours.Add(newUserBehaviour);

@@ -9,10 +9,12 @@ public class ExperimentController(ApplicationDbContext context) : BaseController
 {
     public readonly ApplicationDbContext _context = context;
 
-    
+
     [HttpGet]
-    public async Task<ActionResult<List<Experiment>>> GetExperiments()
+    public async Task<ActionResult<List<Experiment>>> GetExperiments(int userId)
     {
+
+
         var experiments = await context.Experiments.ToListAsync();
         return experiments;
     }

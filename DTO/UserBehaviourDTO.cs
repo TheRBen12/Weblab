@@ -18,7 +18,9 @@ public class UserBehaviourDTO
 
     public bool ?ClickedOnHint { get; set; }
     
-    public bool ?NumberClickedOnHint { get; set; }
+    public int ?NumberClickedOnHint { get; set; }
 
     public int? WelcomeModalTipIndex { get; set; }
+    
+    public  DateTimeOffset? LastUpdatedAt { get; set; }
 }

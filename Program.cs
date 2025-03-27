@@ -13,6 +13,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 builder.Services.AddSingleton<ISettingService, SettingService>();
 builder.Services.AddSingleton<IProductService, ProductService>();
+
+builder.Services.AddScoped<IExperimentService, ExperimentService>();
+
 builder.Services.AddCors();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));

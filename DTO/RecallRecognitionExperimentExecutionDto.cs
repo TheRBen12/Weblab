@@ -2,7 +2,7 @@ namespace WebLab.DTO;
 
 public class RecallRecognitionExperimentExecutionDto
 {
-     public int Id;
+    public int Id;
     
     public int ExperimentTestExecutionId { get; set; }
     
@@ -17,6 +17,9 @@ public class RecallRecognitionExperimentExecutionDto
     public int? ExecutionTime { get; set; }
 
     public int? NumberClicks { get; set; }
+    
+    public int? NumberUsedSearchBar { get; set; }
+
     
     
     

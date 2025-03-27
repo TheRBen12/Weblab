@@ -26,6 +26,10 @@ public class UserBehaviour
     public int? NumberClickedOnHint { get; set; }
     
     public int? WelcomeModalTipIndex { get; set; }
+    
+    [Required]
+    public  DateTimeOffset? LastUpdatedAt { get; set; }
+
 
 
 }

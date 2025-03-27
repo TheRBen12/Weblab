@@ -28,7 +28,7 @@ public class ExperimentTestController(ApplicationDbContext context) : BaseContro
     }
 
     [HttpGet("execution/find")]
-    public async Task<ActionResult<ExperimentTestExecution>> FindExperimentTestByStateAndUserAndExperimentTest(int userId, string state, int testId)
+    public async Task<ActionResult<ExperimentTestExecution>> FindOneExperimentTestByStateAndUserAndExperimentTest(int userId, string state, int testId)
     {
         
         var testExecution = await context.ExperimentTestExecutions.Where(execution => execution.ExperimentTest.Id == testId &&
@@ -42,12 +42,43 @@ public class ExperimentTestController(ApplicationDbContext context) : BaseContro
         return NotFound("Keine Execution gefunden");
     }
     
+    
+    [HttpGet("execution/find/state")]
+    public async Task<IEnumerable<ExperimentTestExecution>> FindExperimentTestByStateAndUser(int userId, string state)
+    {
+        
+        var testExecutions = await context.ExperimentTestExecutions.Where(execution =>
+            execution.State == state && execution.User.Id == userId).Include(exec => exec.ExperimentTest).ThenInclude(test => test.Experiment).ToListAsync();
+
+        return testExecutions;
+        
+    }
+    
+    [HttpGet("execution/find/test")]
+    public async Task<IEnumerable<ExperimentTestExecution>> FindExperimentTestByState(int testId, string state)
+    {
+        
+        var testExecutions = await context.ExperimentTestExecutions.Where(execution => execution.State == state && execution.ExperimentTest.Id == testId ).ToListAsync();
+        return testExecutions;
+        
+    }
+
+    
 
 
     [HttpPost("execution/new")]
     public async Task<ActionResult<ExperimentTestExecution>> SaveExperimentTestExecution(
         [FromBody] ExperimentTestExecutionDto executionDto)
     {
+        var existingExecution = await context.ExperimentTestExecutions.Where(exec =>
+                exec.ExperimentTest.Id == executionDto.ExperimentTestId && exec.State == "INPROGRESS")
+            .FirstOrDefaultAsync();
+
+        if (existingExecution != null)
+        {
+            return existingExecution;
+        }
+        
         var user = await context.Users.FindAsync(executionDto.UserId);
         var experimentTest = await context.ExperimentTests.FindAsync(executionDto.ExperimentTestId);
         var experimentTestExecution = new ExperimentTestExecution()
@@ -56,6 +87,8 @@ public class ExperimentTestController(ApplicationDbContext context) : BaseContro
             StartedExecutionAt = executionDto.StartedExecutionAt,
             ExperimentTest = experimentTest,
             State = executionDto.State,
+            OpenedDescAt = executionDto.OpenedDescAt,
+            TimeReadingDescription = executionDto.TimeReadingDescription,
         };
         var result = context.Add(experimentTestExecution);
         await context.SaveChangesAsync();

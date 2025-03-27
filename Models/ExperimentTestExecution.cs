@@ -17,5 +17,11 @@ public class ExperimentTestExecution
     [Required] public User User { get; set; }
 
     [Required] public string State { get; set; } = "INPROCESS";
+    
+    [Required]
+    public int TimeReadingDescription { get; set; }
+
+    [Required]
+    public DateTimeOffset OpenedDescAt { get; set; }
 
 }

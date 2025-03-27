@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250323175051_AddLastUpdatedAt")]
+    partial class AddLastUpdatedAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,56 +64,6 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("DeletedMails");
-                });
-
-            modelBuilder.Entity("WebLab.Models.ErrorCorrectionExperimentExecution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("ClickedOnDeletedItems")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("ClickedOnUndo")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("CorrectInput")
-                        .HasColumnType("boolean");
-
-                    b.Property<double?>("ExecutionTime")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("ExperimentTestExecutionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FailedClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("FirstClick")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int?>("NumberClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("TaskSuccess")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("TimeToClickOnUndo")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UndoSnackBarPosition")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExperimentTestExecutionId");
-
-                    b.ToTable("ErrorCorrectionExperimentExecutions");
                 });
 
             modelBuilder.Entity("WebLab.Models.Experiment", b =>
@@ -232,61 +185,6 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ExperimentTestExecutions");
-                });
-
-            modelBuilder.Entity("WebLab.Models.HicksLawExperimentExecution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryLimit")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("CategoryLinkClickDates")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("ClickedOnFilters")
-                        .HasColumnType("boolean");
-
-                    b.Property<double?>("ExecutionTime")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("ExperimentTestExecutionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FailedClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("FirstChoiceAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("FirstClick")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int?>("NumberClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("NumberUsedSearchBar")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductLimit")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("SecondChoiceAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset>("ThirdChoiceAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExperimentTestExecutionId");
-
-                    b.ToTable("HicksLawExperimentExecutions");
                 });
 
             modelBuilder.Entity("WebLab.Models.KeyPad", b =>
@@ -428,34 +326,6 @@ namespace WebLab.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("Mixers");
-                });
-
-            modelBuilder.Entity("WebLab.Models.NavigationSelection", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("HorizontalNavigation")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("SideNavigationSearchBarTop")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("SideNavigationSearchbarBottom")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("SideNavigationUserInformationTop")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NavigationSelections");
                 });
 
             modelBuilder.Entity("WebLab.Models.Notebook", b =>
@@ -829,17 +699,6 @@ namespace WebLab.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebLab.Models.ErrorCorrectionExperimentExecution", b =>
-                {
-                    b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
-                        .WithMany()
-                        .HasForeignKey("ExperimentTestExecutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ExperimentTestExecution");
-                });
-
             modelBuilder.Entity("WebLab.Models.ExperimentTest", b =>
                 {
                     b.HasOne("WebLab.Models.Experiment", "Experiment")
@@ -868,17 +727,6 @@ namespace WebLab.Migrations
                     b.Navigation("ExperimentTest");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebLab.Models.HicksLawExperimentExecution", b =>
-                {
-                    b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
-                        .WithMany()
-                        .HasForeignKey("ExperimentTestExecutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ExperimentTestExecution");
                 });
 
             modelBuilder.Entity("WebLab.Models.KeyPad", b =>

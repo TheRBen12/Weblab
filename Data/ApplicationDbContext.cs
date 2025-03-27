@@ -37,4 +37,12 @@ public class ApplicationDbContext : DbContext
     public DbSet<ExperimentTestExecution> ExperimentTestExecutions { get; set; }
 
     public DbSet<RecallRecognitionExperimentExecution> RecallRecognitionExperimentExecutions { get; set; }
+    
+    public DbSet<NavigationSelection> NavigationSelections { get; set; }
+
+
+    public DbSet<HicksLawExperimentExecution> HicksLawExperimentExecutions { get; set; }
+
+    public DbSet<ErrorCorrectionExperimentExecution> ErrorCorrectionExperimentExecutions { get; set; }
+
 }

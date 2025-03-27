@@ -2,8 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebLab.Models;
 
-public class RecallRecognitionExperimentExecution
+public class HicksLawExperimentExecution
 {
+    
+    
     [Key] public int Id { get; set; }
 
     [Required] public ExperimentTestExecution ExperimentTestExecution { get; set; }
@@ -11,13 +13,30 @@ public class RecallRecognitionExperimentExecution
     public string? CategoryLinkClickDates { get; set; }
 
     public int FailedClicks { get; set; }
-
-    public bool ClickedOnSearchBar { get; set; } = false;
     
     public double? ExecutionTime { get; set; }
 
     public int? NumberClicks { get; set; }
     
     public int? NumberUsedSearchBar { get; set; }
+
+    public int ProductLimit { get; set; }
+
+    public int CategoryLimit { get; set; }
+
+    public bool ClickedOnFilters { get; set; }
+
+    public DateTimeOffset FirstChoiceAt { get; set; }
+
+    public DateTimeOffset SecondChoiceAt { get; set; }
+    
+    public DateTimeOffset ThirdChoiceAt { get; set; }
+
+    public string FirstClick { get; set; }
+
+
+
+
+
 
 }

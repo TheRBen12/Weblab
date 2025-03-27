@@ -5,5 +5,5 @@ namespace WebLab.Interfaces;
 
 public interface IExperimentService
 {
-    ExperimentTestExecution SaveExperimentExecution(ExperimentTestExecution experimentTestExecution);
+    Task<ExperimentTestExecution?> SaveExperimentExecution(ExperimentTestExecution experimentTestExecution);
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325195921_AddHicksLawExperimentExecution")]
+    partial class AddHicksLawExperimentExecution
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,56 +64,6 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("DeletedMails");
-                });
-
-            modelBuilder.Entity("WebLab.Models.ErrorCorrectionExperimentExecution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("ClickedOnDeletedItems")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("ClickedOnUndo")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("CorrectInput")
-                        .HasColumnType("boolean");
-
-                    b.Property<double?>("ExecutionTime")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("ExperimentTestExecutionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FailedClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("FirstClick")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int?>("NumberClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("TaskSuccess")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("TimeToClickOnUndo")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UndoSnackBarPosition")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExperimentTestExecutionId");
-
-                    b.ToTable("ErrorCorrectionExperimentExecutions");
                 });
 
             modelBuilder.Entity("WebLab.Models.Experiment", b =>
@@ -262,10 +215,6 @@ namespace WebLab.Migrations
 
                     b.Property<DateTimeOffset>("FirstChoiceAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("FirstClick")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<int?>("NumberClicks")
                         .HasColumnType("integer");
@@ -827,17 +776,6 @@ namespace WebLab.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebLab.Models.ErrorCorrectionExperimentExecution", b =>
-                {
-                    b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
-                        .WithMany()
-                        .HasForeignKey("ExperimentTestExecutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ExperimentTestExecution");
                 });
 
             modelBuilder.Entity("WebLab.Models.ExperimentTest", b =>
