@@ -23,6 +23,8 @@ public class HicksLawExperimentExecution
     public int ProductLimit { get; set; }
 
     public int CategoryLimit { get; set; }
+    
+    public int TimeToClickFirstCategoryLink { get; set; }
 
     public bool ClickedOnFilters { get; set; }
 

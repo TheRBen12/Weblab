@@ -24,6 +24,9 @@ public class HicksLawExperimentExecutionDto
     public DateTimeOffset FinishedExecutionAt { get; set; }
 
     public string? FirstClick { get; set; }
+    
+    public int TimeToClickFirstCategoryLink { get; set; }
+
 
 
 }
