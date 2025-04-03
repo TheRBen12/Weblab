@@ -22,7 +22,7 @@ public class SettingService : ISettingService
             {
                 ProgressiveVisualizationExperiment = true,
                 ProgressiveVisualizationExperimentTest = true,
-                AutoStartNextExperiment = true,
+                AutoStartNextExperiment = false,
                 UserID = user.Id
             },
 

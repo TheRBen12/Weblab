@@ -62,7 +62,9 @@ public class SettingController(ApplicationDbContext context, ISettingService set
             ProgressiveVisualizationExperiment = latestUserSetting.ProgressiveVisualizationExperiment,
             ProgressiveVisualizationExperimentTest = latestUserSetting.ProgressiveVisualizationExperimentTest,
             AutoStartNextExperiment = latestUserSetting.AutoStartNextExperiment,
-            UserID = user.Id
+            UserID = user.Id,
+            Id = latestUserSetting.Id,
+            
         };
         return userSettingDto;
     }
@@ -82,6 +84,28 @@ public class SettingController(ApplicationDbContext context, ISettingService set
     {
         var result = await context.NavigationSelections.Where(setting => setting.UserId == userId).FirstOrDefaultAsync();
         return result;
+
+    }
+    
+    
+    [HttpPost("mental-model/shop/user-navigation/new")]
+    public async Task<ActionResult<MentalModelNavigationConfig> >SaveUserShopNavigationConfig(MentalModelNavigationConfig navigationConfig)
+    {
+        var result = await context.MentalModelNavigationConfigs.AddAsync(navigationConfig);
+        await context.SaveChangesAsync();
+        return result.Entity;
+
+    }
+
+    [HttpGet("mental-model/shop/user-navigation/find")]
+    public async Task<ActionResult<MentalModelNavigationConfig>> GetUserShopNavigationConfig(int userId)
+    {
+        var result = await context.MentalModelNavigationConfigs.Where(config => config.UserId == userId).FirstOrDefaultAsync();
+        if (result != null)
+        {
+            return result;
+        }
+        return NotFound("User was not found");
 
     }
     

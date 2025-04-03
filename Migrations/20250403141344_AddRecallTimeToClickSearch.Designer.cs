@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250403141344_AddRecallTimeToClickSearch")]
+    partial class AddRecallTimeToClickSearch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1186,11 +1189,11 @@ namespace WebLab.Migrations
 
             modelBuilder.Entity("WebLab.Models.UserNavigationTime", b =>
                 {
-                    b.HasOne("WebLab.Models.ExperimentTest", "FromExperiment")
+                    b.HasOne("WebLab.Models.Experiment", "FromExperiment")
                         .WithMany()
                         .HasForeignKey("FromExperimentId");
 
-                    b.HasOne("WebLab.Models.ExperimentTest", "ToExperiment")
+                    b.HasOne("WebLab.Models.Experiment", "ToExperiment")
                         .WithMany()
                         .HasForeignKey("ToExperimentId")
                         .OnDelete(DeleteBehavior.Cascade)

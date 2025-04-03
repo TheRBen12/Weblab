@@ -79,16 +79,16 @@ public class UserController(ApplicationDbContext context, IMapper mapper) : Base
 
 
     [HttpGet("behaviour/find")]
-    public async Task<ActionResult<UserBehaviourDTO>> GetUserBehaviour(int userId)
+    public async Task<ActionResult<UserBehaviourDTO?>> GetUserBehaviour(int userId)
     {
         var userBehaviour = await context.UserBehaviours.Where(b => b.User.Id == userId).FirstOrDefaultAsync();
-        if (userBehaviour != null)
+        if (userBehaviour == null)
         {
-            var userBehaviourDto = mapper.Map<UserBehaviourDTO>(userBehaviour);
-            userBehaviourDto.User = userId;
-            return Ok(userBehaviourDto);
+            return Ok(userBehaviour);
         }
+        var userBehaviourDto = mapper.Map<UserBehaviourDTO>(userBehaviour);
+                    userBehaviourDto.User = userId;
 
-        return NotFound("User wurde nicht gefunden");
+        return Ok(userBehaviourDto);
     }
 }

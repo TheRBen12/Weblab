@@ -20,4 +20,6 @@ public class RecallRecognitionExperimentExecution
     
     public int? NumberUsedSearchBar { get; set; }
 
+    public int? TimeToClickSearchBar { get; set; }
+
 }

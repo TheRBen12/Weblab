@@ -19,6 +19,9 @@ public class RecallRecognitionExperimentExecutionDto
     public int? NumberClicks { get; set; }
     
     public int? NumberUsedSearchBar { get; set; }
+    
+    public int? TimeToClickSearchBar { get; set; }
+
 
     
     

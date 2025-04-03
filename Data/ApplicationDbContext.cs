@@ -1,5 +1,6 @@
 using WebLab.Models;
 using Microsoft.EntityFrameworkCore;
+using WebLab.DTO;
 
 namespace WebLab.Data;
 
@@ -44,5 +45,10 @@ public class ApplicationDbContext : DbContext
     public DbSet<HicksLawExperimentExecution> HicksLawExperimentExecutions { get; set; }
 
     public DbSet<ErrorCorrectionExperimentExecution> ErrorCorrectionExperimentExecutions { get; set; }
+    
+    public DbSet<MentalModelExperimentExecution> MentalModelExperimentExecutions { get; set; }
 
+    public DbSet<MentalModelNavigationConfig> MentalModelNavigationConfigs { get; set; }
+
+    public DbSet<UserNavigationTime> UserNavigationTimes { get; set; }
 }

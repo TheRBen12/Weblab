@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250401173427_AddMentalModelNavigationConfig")]
+    partial class AddMentalModelNavigationConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -421,9 +424,6 @@ namespace WebLab.Migrations
                     b.Property<int?>("TimeToClickFirstCategory")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TimeToClickSearchBar")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("UsedFilter")
                         .HasColumnType("boolean");
 
@@ -487,9 +487,6 @@ namespace WebLab.Migrations
 
                     b.Property<bool>("SideMenuRight")
                         .HasColumnType("boolean");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -816,9 +813,6 @@ namespace WebLab.Migrations
                     b.Property<int?>("NumberUsedSearchBar")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TimeToClickSearchBar")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ExperimentTestExecutionId");
@@ -907,48 +901,6 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserBehaviours");
-                });
-
-            modelBuilder.Entity("WebLab.Models.UserNavigationTime", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("FinishedNavigation")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("FromExperimentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("StartedNavigation")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("ToExperimentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserSettingId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FromExperimentId");
-
-                    b.HasIndex("ToExperimentId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("UserSettingId");
-
-                    b.ToTable("UserNavigationTimes");
                 });
 
             modelBuilder.Entity("WebLab.Models.UserSetting", b =>
@@ -1182,39 +1134,6 @@ namespace WebLab.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebLab.Models.UserNavigationTime", b =>
-                {
-                    b.HasOne("WebLab.Models.ExperimentTest", "FromExperiment")
-                        .WithMany()
-                        .HasForeignKey("FromExperimentId");
-
-                    b.HasOne("WebLab.Models.ExperimentTest", "ToExperiment")
-                        .WithMany()
-                        .HasForeignKey("ToExperimentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebLab.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebLab.Models.UserSetting", "UserSetting")
-                        .WithMany()
-                        .HasForeignKey("UserSettingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FromExperiment");
-
-                    b.Navigation("ToExperiment");
-
-                    b.Navigation("User");
-
-                    b.Navigation("UserSetting");
                 });
 
             modelBuilder.Entity("WebLab.Models.UserSetting", b =>

@@ -57,8 +57,8 @@ public class ProductController(ApplicationDbContext context, IProductService pro
         List<string> types = new List<string>();
         List<ProductType> stack = new List<ProductType>();
 
-        var parentType = await context.ProductTypes
-            .FirstOrDefaultAsync(type => type.Name == category);
+        var parentType = await context.ProductTypes.Where(type => type.Name == category)
+            .FirstOrDefaultAsync();
 
         var allTypes = await context.ProductTypes.Where(type =>  type.ParentType != null)
             .Include(type => type.ParentType).ToListAsync();
@@ -121,7 +121,7 @@ public class ProductController(ApplicationDbContext context, IProductService pro
         for (int i = 0; i < allTypes.Count; i++)
         {
             var currentType = allTypes[i];
-            if (currentType.ParentType.Id == parentType.Id || currentType.Name == category)
+            if (currentType.ParentType.Id == parentType.Id)
             {
                 types.Add(currentType);
                 stack.Add(currentType);
@@ -143,6 +143,7 @@ public class ProductController(ApplicationDbContext context, IProductService pro
             
         }
         
+        types.Insert(0, parentType);
        
         return types;
     }

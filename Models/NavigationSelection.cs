@@ -15,4 +15,6 @@ public class NavigationSelection
     [Required] public bool SideNavigationUserInformationTop { get; set; }
 
     [Required] public int UserId { get; set; }
+    
+    [Required] public bool MegaDropDown { get; set; }
 }

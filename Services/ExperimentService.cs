@@ -27,6 +27,16 @@ public class ExperimentService(ApplicationDbContext context): IExperimentService
             return experimentTestExecution;
        
     }
+    
+    
+    public async Task<ExperimentTestExecution?> FindExecutionById(int id)
+    {
+        
+        var experimentTestExecution =
+            await context.ExperimentTestExecutions.FindAsync(id);
+        return experimentTestExecution;
+
+    }
 
 
 }

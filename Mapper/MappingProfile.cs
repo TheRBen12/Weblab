@@ -15,5 +15,6 @@ public class MappingProfile: Profile
          CreateMap<UserBehaviourDTO, UserBehaviour>()
              .ForMember(dest => dest.User, opt => opt.MapFrom<UserBehaviourToDtoResolver>());
          
+         
     }
 }

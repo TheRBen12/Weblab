@@ -2,6 +2,8 @@ namespace WebLab.DTO;
 
 public class UserSettingDTO
 {
+
+    public int Id { get; set; }
     public bool ProgressiveVisualizationExperiment { get; set; }
 
     public bool ProgressiveVisualizationExperimentTest { get; set; }
