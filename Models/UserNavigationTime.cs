@@ -18,7 +18,7 @@ public class UserNavigationTime
 
     [Required] public DateTimeOffset StartedNavigation { get; set; }
 
-    [Required] public UserSetting UserSetting { get; set; }
+    public UserSetting? UserSetting { get; set; }
 
     [Required] public int NumberClicks { get; set; } = 0;
 

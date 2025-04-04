@@ -50,7 +50,7 @@ public class SettingController(ApplicationDbContext context, ISettingService set
             .Where(setting => setting.User.Equals(user))
             .OrderByDescending(setting => setting.Created)
             .FirstOrDefaultAsync();
-        
+
         if (latestUserSetting == null)
         {
             var defaultUserSettingDto = settingService.CreateDefaultSetting(user);
@@ -64,49 +64,50 @@ public class SettingController(ApplicationDbContext context, ISettingService set
             AutoStartNextExperiment = latestUserSetting.AutoStartNextExperiment,
             UserID = user.Id,
             Id = latestUserSetting.Id,
-            
         };
         return userSettingDto;
     }
 
 
     [HttpPost("navigation/new")]
-    public async Task<ActionResult<NavigationSelection> >SaveNavigationSetting(NavigationSelection navigationSelection)
+    public async Task<ActionResult<NavigationSelection>> SaveNavigationSetting(NavigationSelection navigationSelection)
     {
+        navigationSelection.CreatedAt = DateTimeOffset.UtcNow;
         var result = await context.NavigationSelections.AddAsync(navigationSelection);
         await context.SaveChangesAsync();
         return result.Entity;
-
     }
-    
+
     [HttpGet("navigation/find")]
     public async Task<ActionResult<NavigationSelection>> GetNavigationSetting(int userId)
     {
-        var result = await context.NavigationSelections.Where(setting => setting.UserId == userId).FirstOrDefaultAsync();
+        var result = await context.NavigationSelections
+            .Where(config => config.UserId == userId)
+            .OrderByDescending(config => config.CreatedAt)
+            .FirstOrDefaultAsync();
         return result;
-
     }
-    
-    
+
+
     [HttpPost("mental-model/shop/user-navigation/new")]
-    public async Task<ActionResult<MentalModelNavigationConfig> >SaveUserShopNavigationConfig(MentalModelNavigationConfig navigationConfig)
+    public async Task<ActionResult<MentalModelNavigationConfig>> SaveUserShopNavigationConfig(
+        MentalModelNavigationConfig navigationConfig)
     {
         var result = await context.MentalModelNavigationConfigs.AddAsync(navigationConfig);
         await context.SaveChangesAsync();
         return result.Entity;
-
     }
 
     [HttpGet("mental-model/shop/user-navigation/find")]
     public async Task<ActionResult<MentalModelNavigationConfig>> GetUserShopNavigationConfig(int userId)
     {
-        var result = await context.MentalModelNavigationConfigs.Where(config => config.UserId == userId).FirstOrDefaultAsync();
+        var result = await context.MentalModelNavigationConfigs.Where(config => config.UserId == userId)
+            .FirstOrDefaultAsync();
         if (result != null)
         {
             return result;
         }
-        return NotFound("User was not found");
 
+        return NotFound("User was not found");
     }
-    
 }

@@ -17,4 +17,6 @@ public class NavigationSelection
     [Required] public int UserId { get; set; }
     
     [Required] public bool MegaDropDown { get; set; }
+
+    [Required] public DateTimeOffset CreatedAt { get; set; }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250403194018_AddCreatedAt")]
+    partial class AddCreatedAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,68 +235,6 @@ namespace WebLab.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ExperimentTestExecutions");
-                });
-
-            modelBuilder.Entity("WebLab.Models.FittsLawExperimentExecution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClickReactionTimes")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ExecutionTime")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ExperimentTestExecutionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberFailedClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("TaskSuccess")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Tasks")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExperimentTestExecutionId");
-
-                    b.ToTable("FittsLawExperimentExecutions");
-                });
-
-            modelBuilder.Entity("WebLab.Models.FormAndFeedbackExperimentExecution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ExecutionTime")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ExperimentTestExecutionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberFormValidations")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExperimentTestExecutionId");
-
-                    b.ToTable("FormAndFeedbackExperimentExecutions");
                 });
 
             modelBuilder.Entity("WebLab.Models.HicksLawExperimentExecution", b =>
@@ -1000,7 +941,7 @@ namespace WebLab.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("UserSettingId")
+                    b.Property<int>("UserSettingId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -1096,28 +1037,6 @@ namespace WebLab.Migrations
                     b.Navigation("ExperimentTest");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebLab.Models.FittsLawExperimentExecution", b =>
-                {
-                    b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
-                        .WithMany()
-                        .HasForeignKey("ExperimentTestExecutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ExperimentTestExecution");
-                });
-
-            modelBuilder.Entity("WebLab.Models.FormAndFeedbackExperimentExecution", b =>
-                {
-                    b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
-                        .WithMany()
-                        .HasForeignKey("ExperimentTestExecutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ExperimentTestExecution");
                 });
 
             modelBuilder.Entity("WebLab.Models.HicksLawExperimentExecution", b =>
@@ -1291,7 +1210,9 @@ namespace WebLab.Migrations
 
                     b.HasOne("WebLab.Models.UserSetting", "UserSetting")
                         .WithMany()
-                        .HasForeignKey("UserSettingId");
+                        .HasForeignKey("UserSettingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("FromExperiment");
 

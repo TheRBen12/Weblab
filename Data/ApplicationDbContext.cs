@@ -51,4 +51,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<MentalModelNavigationConfig> MentalModelNavigationConfigs { get; set; }
 
     public DbSet<UserNavigationTime> UserNavigationTimes { get; set; }
+
+    public DbSet<FormAndFeedbackExperimentExecution> FormAndFeedbackExperimentExecutions { get; set; }
+    
+    public DbSet<FittsLawExperimentExecution> FittsLawExperimentExecutions { get; set; }
+
 }

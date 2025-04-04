@@ -18,6 +18,7 @@ public class UserNavigationController(ApplicationDbContext context) : BaseContro
         var user = await context.Users.Where(user => user.Id == userNavigationTimeDto.UserId).FirstOrDefaultAsync();
         var userSetting = await context.UserSettings.Where(setting => setting.Id == userNavigationTimeDto.UserSettingId)
             .FirstOrDefaultAsync();
+        
         var toExperiment = await context.ExperimentTests.Where(exp => exp.Id == userNavigationTimeDto.ToExperimentId)
             .FirstOrDefaultAsync();
 
@@ -26,7 +27,7 @@ public class UserNavigationController(ApplicationDbContext context) : BaseContro
             User = user,
             FromExperiment = null,
             ToExperiment = toExperiment,
-            FinishedNavigation = userNavigationTimeDto.FinishedNavigation,
+            FinishedNavigation = DateTimeOffset.Now.UtcDateTime,
             StartedNavigation = userNavigationTimeDto.StartedNavigation,
             UserSetting = userSetting,
             NumberClicks = userNavigationTimeDto.NumberClicks,
