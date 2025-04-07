@@ -16,7 +16,6 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
     [HttpGet]
     public async Task<ActionResult<List<Experiment>>> GetExperiments()
     {
-        
         var experiments = await context.Experiments.ToListAsync();
         return experiments;
     }
@@ -37,7 +36,8 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
 
 
     [HttpPost("mental-model/new")]
-    public async Task<ActionResult<MentalModelExperimentExecution>> SaveExperimentExecution([FromBody] MentalModelExperimentExecutionDto executionDto)
+    public async Task<ActionResult<MentalModelExperimentExecution>> SaveExperimentExecution(
+        [FromBody] MentalModelExperimentExecutionDto executionDto)
     {
         var experimentTestExecution =
             await experimentService.FindExecutionById(executionDto.ExperimentTestExecutionId);
@@ -51,6 +51,7 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
         {
             return NotFound("Die execution ID darf nicht null sein");
         }
+
         experimentTestExecution.FinishedExecutionAt = executionDto.FinishedExecutionAt;
 
         var mentalModelExecution = new MentalModelExperimentExecution
@@ -66,18 +67,36 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
             TimeToClickFirstCategory = executionDto.TimeToClickFirstCategory,
             FirstClick = executionDto.FirstClick,
             TimeToClickSearchBar = executionDto.TimeToClickSearchBar,
-            
         };
-            
+
         var result = context.MentalModelExperimentExecutions.Add(mentalModelExecution);
         await context.SaveChangesAsync();
         return result.Entity;
     }
-    
-    
-   //[HttpPost("feedback/new")]
-    
-    
 
-    
+
+    [HttpPost("feedback/new")]
+    public async Task<IActionResult> SaveFeedback(ExperimentFeedbackDto feedbackDto)
+    {
+        var user = await context.Users.Where(user => user.Id == feedbackDto.UserId).FirstOrDefaultAsync();
+        var test = await context.ExperimentTests.Where(test => test.Id == feedbackDto.ExperimentTestId).FirstOrDefaultAsync();
+        if (user == null || test == null )
+        {
+            return BadRequest("User or Test cannot be null");
+        }
+
+        var feedback = new ExperimentFeedback
+        {
+            User = user,
+            Text = feedbackDto.Text,
+            Consistency = feedbackDto.Consistency,
+            CognitiveStress = feedbackDto.CognitiveStress,
+            Learnability = feedbackDto.Learnability,
+            MentalModel = feedbackDto.MentalModel,
+            ExperimentTest = test,
+        };
+        await context.ExperimentFeedbacks.AddAsync(feedback);
+        await context.SaveChangesAsync();
+        return Ok();
+    }
 }

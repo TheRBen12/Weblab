@@ -41,6 +41,8 @@ public class ErrorCorrectionExperimentController(ApplicationDbContext context, I
             ExecutionTime = experimentTestExecution.ExecutionTime,
             ExperimentTestExecution = experimentTestExecution,
             TaskSuccess = executionDto.TaskSuccess,
+            TimeToClickOnDeletedItems = executionDto.TimeToClickOnDeletedItems,
+            TimeToClickOnUndo = executionDto.TimeToClickOnUndo,
         };
         var result = context.ErrorCorrectionExperimentExecutions.Add(execution);
         await context.SaveChangesAsync();

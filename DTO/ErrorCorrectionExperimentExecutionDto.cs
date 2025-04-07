@@ -25,4 +25,6 @@ public class ErrorCorrectionExperimentExecutionDto
     
     public DateTimeOffset FinishedExecutionAt { get; set; }
 
+    public int? TimeToClickOnDeletedItems { get; set; }
+
 }

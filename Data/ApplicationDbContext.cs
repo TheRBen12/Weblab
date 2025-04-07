@@ -57,6 +57,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<FittsLawExperimentExecution> FittsLawExperimentExecutions { get; set; }
     
     public DbSet<RestorffExperimentExecution> RestorffExperimentExecutions { get; set; }
+    
+    public DbSet<ExperimentFeedback> ExperimentFeedbacks { get; set; }
+
 
 
 }

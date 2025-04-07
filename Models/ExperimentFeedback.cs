@@ -11,4 +11,7 @@ public class ExperimentFeedback
     [Required] public int CognitiveStress { get; set; }
     [Required] public int Learnability { get; set; }
     [Required] public int MentalModel { get; set; }
+    
+    [Required] public ExperimentTest ExperimentTest { get; set; }
+
 }

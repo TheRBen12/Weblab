@@ -28,5 +28,8 @@ public class ErrorCorrectionExperimentExecution
 
     public bool CorrectInput { get; set; }
 
+    public int? TimeToClickOnDeletedItems { get; set; }
+    
+
 
 }
