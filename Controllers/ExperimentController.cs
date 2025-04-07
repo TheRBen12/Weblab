@@ -65,7 +65,8 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
             NumberUsedSearchBar = executionDto.NumberUsedSearchBar,
             TimeToClickFirstCategory = executionDto.TimeToClickFirstCategory,
             FirstClick = executionDto.FirstClick,
-            TimeToClickSearchBar = executionDto.TimeToClickSearchBar
+            TimeToClickSearchBar = executionDto.TimeToClickSearchBar,
+            
         };
             
         var result = context.MentalModelExperimentExecutions.Add(mentalModelExecution);
@@ -73,5 +74,10 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
         return result.Entity;
     }
     
+    
+   //[HttpPost("feedback/new")]
+    
+    
+
     
 }

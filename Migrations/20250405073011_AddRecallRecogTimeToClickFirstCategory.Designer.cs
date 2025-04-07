@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250405073011_AddRecallRecogTimeToClickFirstCategory")]
+    partial class AddRecallRecogTimeToClickFirstCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -514,9 +517,6 @@ namespace WebLab.Migrations
                     b.Property<bool>("AutoCompleteTop")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("Breadcrumbs")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("Filter")
                         .HasColumnType("boolean");
 
@@ -897,44 +897,6 @@ namespace WebLab.Migrations
                     b.ToTable("RecallRecognitionExperimentExecutions");
                 });
 
-            modelBuilder.Entity("WebLab.Models.RestorffExperimentExecution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ExecutionTime")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ExperimentTestExecutionId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberDeletedMails")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberFailedClicks")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ReactionTimes")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Tasks")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExperimentTestExecutionId");
-
-                    b.ToTable("RestorffExperimentExecutions");
-                });
-
             modelBuilder.Entity("WebLab.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -1294,17 +1256,6 @@ namespace WebLab.Migrations
                 });
 
             modelBuilder.Entity("WebLab.Models.RecallRecognitionExperimentExecution", b =>
-                {
-                    b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
-                        .WithMany()
-                        .HasForeignKey("ExperimentTestExecutionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ExperimentTestExecution");
-                });
-
-            modelBuilder.Entity("WebLab.Models.RestorffExperimentExecution", b =>
                 {
                     b.HasOne("WebLab.Models.ExperimentTestExecution", "ExperimentTestExecution")
                         .WithMany()
