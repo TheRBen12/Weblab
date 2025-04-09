@@ -26,7 +26,7 @@ public class MentalModelNavigationConfig
     
     [Required] public bool ShoppingCartBottomRight { get; set; }
     
-    [Required] public bool ShoppingCartBottomRLeft { get; set; }
+    [Required] public bool ShoppingCartBottomLeft { get; set; }
 
     [Required] public bool MegaDropDown { get; set; }
 
@@ -38,7 +38,8 @@ public class MentalModelNavigationConfig
     
     [Required] public bool Breadcrumbs { get; set; }
 
-
-
-
+    [Required] public DateTimeOffset CreatedAt { get; set; }
+    
+    [Required] public int ExperimentTestId { get; set; }
+    
 }

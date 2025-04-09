@@ -26,6 +26,8 @@ public class MentalModelExperimentExecution
 
     public bool UsedFilter { get; set; }
     
+    public bool UsedBreadcrumbs { get; set; }
+    
     public double? ExecutionTime { get; set; }
 
     public int? NumberClicks { get; set; }
@@ -35,6 +37,9 @@ public class MentalModelExperimentExecution
     public int? TimeToClickFirstCategory { get; set; }
     
     public int? TimeToClickSearchBar { get; set; }
+    
+    public int? TimeToClickShoppingCart { get; set; }
+
 
 
     

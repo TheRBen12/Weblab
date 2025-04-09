@@ -67,6 +67,8 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
             TimeToClickFirstCategory = executionDto.TimeToClickFirstCategory,
             FirstClick = executionDto.FirstClick,
             TimeToClickSearchBar = executionDto.TimeToClickSearchBar,
+            TimeToClickShoppingCart = executionDto.TimeToClickShoppingCart,
+            UsedBreadcrumbs = executionDto.UsedBreadcrumbs,
         };
 
         var result = context.MentalModelExperimentExecutions.Add(mentalModelExecution);
@@ -94,9 +96,35 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
             Learnability = feedbackDto.Learnability,
             MentalModel = feedbackDto.MentalModel,
             ExperimentTest = test,
+            Understandable = feedbackDto.Understandable,
         };
         await context.ExperimentFeedbacks.AddAsync(feedback);
         await context.SaveChangesAsync();
         return Ok();
+    }
+    
+    
+    [HttpPost("selection-time/new")]
+    public async Task<ActionResult<ExperimentSelectionTimeDto>> SaveExperimentSelectionTime(ExperimentSelectionTimeDto experimentSelectionTimeDto)
+    {
+        var user = await context.Users.Where(user => user.Id == experimentSelectionTimeDto.UserId).FirstOrDefaultAsync();
+        var experiment = await context.Experiments.Where(exp => exp.Id == experimentSelectionTimeDto.ExperimentId).FirstOrDefaultAsync();
+        var setting = await context.UserSettings.Where(setting => setting.Id == experimentSelectionTimeDto.SettingId).FirstOrDefaultAsync();
+        if (user == null || experiment == null)
+        {
+            return BadRequest("User or Experiment cannot be null");
+        }
+
+        var experimentSelectionTime = new ExperimentSelectionTime
+        {
+            Time = experimentSelectionTimeDto.Time,
+            Experiment = experiment,
+            User = user,
+            Setting = setting,
+
+        };
+        await context.ExperimentSelectionTimes.AddAsync(experimentSelectionTime);
+        await context.SaveChangesAsync();
+        return Ok(experimentSelectionTimeDto);
     }
 }

@@ -59,6 +59,9 @@ public class ApplicationDbContext : DbContext
     public DbSet<RestorffExperimentExecution> RestorffExperimentExecutions { get; set; }
     
     public DbSet<ExperimentFeedback> ExperimentFeedbacks { get; set; }
+    
+    public DbSet<ExperimentSelectionTime> ExperimentSelectionTimes { get; set; }
+
 
 
 

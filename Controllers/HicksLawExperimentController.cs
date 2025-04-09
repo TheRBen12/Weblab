@@ -47,6 +47,7 @@ public class HicksLawExperimentController(ApplicationDbContext context) : BaseCo
             CategoryLinkClickDates = executionDto.CategoryLinkClickDates,
             NumberUsedSearchBar = executionDto.NumberClickedSearchBar,
             TimeToClickFirstCategoryLink = executionDto.TimeToClickFirstCategoryLink,
+            UsedFilters = executionDto.UsedFilters,
 
         };
         var result = context.HicksLawExperimentExecutions.Add(hicksLawExperimentExecution);

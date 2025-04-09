@@ -9,4 +9,7 @@ public class ExperimentFeedbackDto
     public int CognitiveStress { get; set; }
     public int Learnability { get; set; }
     public int MentalModel { get; set; }
+    
+    public int Understandable { get; set; }
+
 }

@@ -14,4 +14,8 @@ public class FormAndFeedbackExperimentExecution
 
     [Required] public int NumberFormValidations { get; set; }
     
+    
+    [Required] public int NumberErrors { get; set; }
+
+    
 }

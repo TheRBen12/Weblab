@@ -11,6 +11,9 @@ public class FormAndFeedbackExperimentExecutionDto
     public int ExecutionTime { get; set; }
 
     public int NumberFormValidations { get; set; }
+    
+    public int NumberErrors { get; set; }
+
 
     public DateTimeOffset FinishedExecutionAt { get; set; }
     

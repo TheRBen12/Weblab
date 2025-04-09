@@ -20,16 +20,16 @@ public class SettingService : ISettingService
 
             "B" => new UserSettingDTO()
             {
-                ProgressiveVisualizationExperiment = true,
-                ProgressiveVisualizationExperimentTest = true,
+                ProgressiveVisualizationExperiment = false,
+                ProgressiveVisualizationExperimentTest = false,
                 AutoStartNextExperiment = false,
                 UserID = user.Id
             },
 
             "C" => new UserSettingDTO()
             {
-                ProgressiveVisualizationExperiment = true,
-                ProgressiveVisualizationExperimentTest = true,
+                ProgressiveVisualizationExperiment = false,
+                ProgressiveVisualizationExperimentTest = false,
                 AutoStartNextExperiment = false,
                 UserID = user.Id
             },

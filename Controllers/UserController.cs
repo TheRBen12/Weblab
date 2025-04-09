@@ -91,4 +91,6 @@ public class UserController(ApplicationDbContext context, IMapper mapper) : Base
 
         return Ok(userBehaviourDto);
     }
+    
+    
 }

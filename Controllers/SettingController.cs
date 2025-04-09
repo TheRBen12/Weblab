@@ -97,17 +97,23 @@ public class SettingController(ApplicationDbContext context, ISettingService set
         await context.SaveChangesAsync();
         return result.Entity;
     }
+    
+    [HttpPut("mental-model/shop/user-navigation/update")]
+    public async Task<ActionResult<MentalModelNavigationConfig>> UpdateUserShopNavigationConfig(
+        MentalModelNavigationConfig navigationConfig)
+    {
+        var result = context.MentalModelNavigationConfigs.Update(navigationConfig);
+        await context.SaveChangesAsync();
+        return result.Entity;
+    }
 
     [HttpGet("mental-model/shop/user-navigation/find")]
-    public async Task<ActionResult<MentalModelNavigationConfig>> GetUserShopNavigationConfig(int userId)
+    public async Task<ActionResult<MentalModelNavigationConfig>> GetUserShopNavigationConfig(int userId, int testId)
     {
-        var result = await context.MentalModelNavigationConfigs.Where(config => config.UserId == userId)
+        var result = await context.MentalModelNavigationConfigs
+            .Where(config => config.UserId == userId && config.ExperimentTestId == testId)
+            .OrderByDescending(config => config.CreatedAt)
             .FirstOrDefaultAsync();
-        if (result != null)
-        {
-            return result;
-        }
-
-        return NotFound("User was not found");
+        return Ok(result);
     }
 }

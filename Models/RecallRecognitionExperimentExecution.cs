@@ -22,7 +22,8 @@ public class RecallRecognitionExperimentExecution
 
     public int? TimeToClickSearchBar { get; set; }
     
-    
+    public bool UsedBreadcrumbs { get; set; } = false;
+
     public int? TimeToClickFirstCategoryLink { get; set; }
 
 

@@ -157,6 +157,9 @@ namespace WebLab.Migrations
                     b.Property<int>("Consistency")
                         .HasColumnType("integer");
 
+                    b.Property<int>("ExperimentTestId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Learnability")
                         .HasColumnType("integer");
 
@@ -167,14 +170,50 @@ namespace WebLab.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Understandable")
+                        .HasColumnType("integer");
+
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ExperimentTestId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("ExperimentFeedbacks");
+                });
+
+            modelBuilder.Entity("WebLab.Models.ExperimentSelectionTime", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExperimentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SettingId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Time")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperimentId");
+
+                    b.HasIndex("SettingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ExperimentSelectionTimes");
                 });
 
             modelBuilder.Entity("WebLab.Models.ExperimentTest", b =>
@@ -323,6 +362,9 @@ namespace WebLab.Migrations
                     b.Property<int>("NumberClicks")
                         .HasColumnType("integer");
 
+                    b.Property<int>("NumberErrors")
+                        .HasColumnType("integer");
+
                     b.Property<int>("NumberFormValidations")
                         .HasColumnType("integer");
 
@@ -383,6 +425,10 @@ namespace WebLab.Migrations
 
                     b.Property<int>("TimeToClickFirstCategoryLink")
                         .HasColumnType("integer");
+
+                    b.Property<string>("UsedFilters")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -523,6 +569,12 @@ namespace WebLab.Migrations
                     b.Property<int?>("TimeToClickSearchBar")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("TimeToClickShoppingCart")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("UsedBreadcrumbs")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("UsedFilter")
                         .HasColumnType("boolean");
 
@@ -554,6 +606,12 @@ namespace WebLab.Migrations
                     b.Property<bool>("Breadcrumbs")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ExperimentTestId")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("Filter")
                         .HasColumnType("boolean");
 
@@ -572,7 +630,7 @@ namespace WebLab.Migrations
                     b.Property<bool>("SearchBarTop")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("ShoppingCartBottomRLeft")
+                    b.Property<bool>("ShoppingCartBottomLeft")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("ShoppingCartBottomRight")
@@ -927,6 +985,9 @@ namespace WebLab.Migrations
                     b.Property<int?>("TimeToClickSearchBar")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("UsedBreadcrumbs")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ExperimentTestExecutionId");
@@ -1151,11 +1212,44 @@ namespace WebLab.Migrations
 
             modelBuilder.Entity("WebLab.Models.ExperimentFeedback", b =>
                 {
+                    b.HasOne("WebLab.Models.ExperimentTest", "ExperimentTest")
+                        .WithMany()
+                        .HasForeignKey("ExperimentTestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebLab.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ExperimentTest");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebLab.Models.ExperimentSelectionTime", b =>
+                {
+                    b.HasOne("WebLab.Models.Experiment", "Experiment")
+                        .WithMany()
+                        .HasForeignKey("ExperimentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebLab.Models.UserSetting", "Setting")
+                        .WithMany()
+                        .HasForeignKey("SettingId");
+
+                    b.HasOne("WebLab.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Experiment");
+
+                    b.Navigation("Setting");
 
                     b.Navigation("User");
                 });

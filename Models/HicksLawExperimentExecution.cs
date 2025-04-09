@@ -35,6 +35,9 @@ public class HicksLawExperimentExecution
     public DateTimeOffset ThirdChoiceAt { get; set; }
 
     public string FirstClick { get; set; }
+    
+    public string UsedFilters { get; set; } = String.Empty;
+
 
 
 
