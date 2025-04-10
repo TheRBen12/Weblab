@@ -104,7 +104,6 @@ public class ProductController(ApplicationDbContext context, IProductService pro
     
     
     
-    
     [HttpGet("all/subcategories")]
     public async Task<IEnumerable<ProductType>> GetAllSubCategoryByParentCategory(string category)
     {

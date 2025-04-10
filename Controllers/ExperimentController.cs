@@ -69,6 +69,7 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
             TimeToClickSearchBar = executionDto.TimeToClickSearchBar,
             TimeToClickShoppingCart = executionDto.TimeToClickShoppingCart,
             UsedBreadcrumbs = executionDto.UsedBreadcrumbs,
+            NumberToggledMenu = executionDto.NumberToggledMenu,
         };
 
         var result = context.MentalModelExperimentExecutions.Add(mentalModelExecution);

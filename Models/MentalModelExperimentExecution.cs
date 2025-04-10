@@ -39,6 +39,9 @@ public class MentalModelExperimentExecution
     public int? TimeToClickSearchBar { get; set; }
     
     public int? TimeToClickShoppingCart { get; set; }
+    
+    public int? NumberToggledMenu { get; set; }
+
 
 
 
