@@ -42,8 +42,10 @@ public class MentalModelExperimentExecution
     
     public int? NumberToggledMenu { get; set; }
 
+    public int TimeToFirstClick { get; set; }
 
 
 
-    
+
+
 }

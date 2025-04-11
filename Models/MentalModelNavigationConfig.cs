@@ -33,7 +33,13 @@ public class MentalModelNavigationConfig
     [Required] public bool SideMenuLeft { get; set; }
     
     [Required] public bool SideMenuRight { get; set; }
+    
+    [Required] public bool MenuToggleIcon { get; set; }
 
+    [Required] public bool MenuTitle { get; set; }
+    
+    [Required] public bool OffCanvasMenu { get; set; }
+    
     [Required] public int UserId { get; set; }
     
     [Required] public bool Breadcrumbs { get; set; }

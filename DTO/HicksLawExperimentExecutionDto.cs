@@ -29,6 +29,9 @@ public class HicksLawExperimentExecutionDto
 
     
     public int TimeToClickFirstCategoryLink { get; set; }
+    
+    public int TimeToFirstClick { get; set; }
+
 
 
 

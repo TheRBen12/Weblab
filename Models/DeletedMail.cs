@@ -22,6 +22,8 @@ public class DeletedMail
     [Required] public string Date { get; set; }
 
     public DateTime DeletedAt { get; set; }
-    
+
+    public bool ClickedInDeletedItems { get; set; }
+
     public User User { get; set; }
 }

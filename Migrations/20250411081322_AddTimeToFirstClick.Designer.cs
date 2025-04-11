@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250411081322_AddTimeToFirstClick")]
+    partial class AddTimeToFirstClick
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +36,6 @@ namespace WebLab.Migrations
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<bool>("ClickedInDeletedItems")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Date")
                         .IsRequired()
@@ -458,9 +458,6 @@ namespace WebLab.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("TimeToClickFirstCategoryLink")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TimeToFirstClick")
                         .HasColumnType("integer");
 
                     b.Property<string>("UsedFilters")

@@ -155,7 +155,7 @@ public class ProductController(ApplicationDbContext context, IProductService pro
     {
         Random random = new Random();
         var numberOfProducts = context.Products.ToList().Count;
-        var id = random.Next(1, numberOfProducts);
+        var id = random.Next(51,70);
         var dailyOfferProduct = await context.Products.Include(product => product.Type)
             .Include(product => product.Specifications).ThenInclude(spec => spec.ProductProperty)
             .FirstOrDefaultAsync(product => product.Id == id);

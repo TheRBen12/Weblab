@@ -15,7 +15,6 @@ public class EmailController(ApplicationDbContext context) : BaseController
     [HttpPost("new")]
     public async Task<ActionResult<DeletedMailDto>> DeleteEmail(DeletedMailDto email)
     {
-        
         if (email == null)
         {
             return BadRequest("Email object is null");
@@ -28,6 +27,13 @@ public class EmailController(ApplicationDbContext context) : BaseController
         }
 
         var user = await context.Users.FindAsync(email.User);
+
+        var existingDeletedMail = await context.DeletedMails.FindAsync(email.Id);
+
+        if (existingDeletedMail != null)
+        {
+            return Ok(email);
+        }
         
         var deletedMail = new DeletedMail()
         {
@@ -38,13 +44,24 @@ public class EmailController(ApplicationDbContext context) : BaseController
             User = user,
             Subject = email.Subject,
             Date = email.Date,
-            DeletedAt = new DateTime()
+            DeletedAt = new DateTime(),
+            ClickedInDeletedItems = false,
         };
 
         context.DeletedMails.Add(deletedMail);
         await context.SaveChangesAsync();
         return Ok(email);
-        
+    }
+
+    [HttpPut("update/clicked")]
+    public async Task<ActionResult<DeletedMailDto>> UpdateDeletedEmailClicked(DeletedMailDto email)
+    {
+        var deletedMail = context.DeletedMails.FindAsync(email.Id).Result;
+        deletedMail.ClickedInDeletedItems = true;
+
+        context.DeletedMails.Update(deletedMail);
+        await context.SaveChangesAsync();
+        return Ok(email);
     }
 
 
@@ -53,7 +70,7 @@ public class EmailController(ApplicationDbContext context) : BaseController
     {
         return await context.DeletedMails.ToListAsync();
     }
-    
+
     [HttpGet("mails/all")]
     public async Task<ActionResult<IEnumerable<Mail>>> GetEmails()
     {

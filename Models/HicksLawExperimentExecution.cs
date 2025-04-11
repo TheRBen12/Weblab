@@ -38,6 +38,8 @@ public class HicksLawExperimentExecution
     
     public string UsedFilters { get; set; } = String.Empty;
 
+    public int TimeToFirstClick { get; set; }
+
 
 
 
