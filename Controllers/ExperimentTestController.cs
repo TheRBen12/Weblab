@@ -122,4 +122,30 @@ public class ExperimentTestController(ApplicationDbContext context) : BaseContro
         
         return result.Entity;
     }
+    
+    
+     
+    [HttpPost("selection-time/new")]
+    public async Task<ActionResult<ExperimentSelectionTimeDto>> SaveExperimentSelectionTime(ExperimentTestSelectionTimeDto experimentSelectionTimeDto)
+    {
+        var user = await context.Users.Where(user => user.Id == experimentSelectionTimeDto.UserId).FirstOrDefaultAsync();
+        var experimentTest = await context.ExperimentTests.Where(exp => exp.Id == experimentSelectionTimeDto.ExperimentTestId).FirstOrDefaultAsync();
+        var setting = await context.UserSettings.Where(setting => setting.Id == experimentSelectionTimeDto.SettingId).FirstOrDefaultAsync();
+        if (user == null || experimentTest == null)
+        {
+            return BadRequest("User or Experiment cannot be null");
+        }
+
+        var experimentTestSelectionTime = new ExperimentTestSelectionTime()
+        {
+            Time = experimentSelectionTimeDto.Time,
+            ExperimentTest = experimentTest,
+            User = user,
+            Setting = setting,
+
+        };
+        await context.ExperimentTestSelectionTimes.AddAsync(experimentTestSelectionTime);
+        await context.SaveChangesAsync();
+        return Ok(experimentSelectionTimeDto);
+    }
 }

@@ -61,8 +61,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<ExperimentFeedback> ExperimentFeedbacks { get; set; }
     
     public DbSet<ExperimentSelectionTime> ExperimentSelectionTimes { get; set; }
-
-
-
-
+    
+    public DbSet<ExperimentTestSelectionTime> ExperimentTestSelectionTimes { get; set; }
+    
 }
