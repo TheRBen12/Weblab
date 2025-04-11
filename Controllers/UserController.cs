@@ -68,7 +68,8 @@ public class UserController(ApplicationDbContext context, IMapper mapper) : Base
             NumberClickedOnHint = 0,
             User = user,
             WelcomeModalTipIndex = userBehaviour.WelcomeModalTipIndex,
-            LastUpdatedAt = userBehaviour.LastUpdatedAt
+            LastUpdatedAt = userBehaviour.LastUpdatedAt,
+            ClickedOnSettingsAt = null,
         };
 
         var updatedUserBehaviour = context.UserBehaviours.Add(newUserBehaviour);

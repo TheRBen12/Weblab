@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebLab.Data;
@@ -11,9 +12,11 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250411105548_AddClickedOnSettingsAt")]
+    partial class AddClickedOnSettingsAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1140,7 +1143,7 @@ namespace WebLab.Migrations
                     b.Property<bool?>("ClickedOnSettings")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTimeOffset?>("ClickedOnSettingsAt")
+                    b.Property<DateTimeOffset>("ClickedOnSettingsAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("LastUpdatedAt")

@@ -23,4 +23,6 @@ public class UserBehaviourDTO
     public int? WelcomeModalTipIndex { get; set; }
     
     public  DateTimeOffset? LastUpdatedAt { get; set; }
+    
+    public  DateTimeOffset? ClickedOnSettingsAt { get; set; }
 }
