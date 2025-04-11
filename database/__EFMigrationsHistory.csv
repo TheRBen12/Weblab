@@ -1,0 +1,9 @@
+20250409163708_InitialCreate,9.0.0
+20250411055720_UpdateEntities,9.0.0
+20250411071746_UpdateShopConfigEntity,9.0.0
+20250411071954_UpdateShopConfigEntityAddOffCanvasMenu,9.0.0
+20250411081322_AddTimeToFirstClick,9.0.0
+20250411085142_AddTimeToFirstClickToHick,9.0.0
+20250411094543_AddClickedInDeletedItens,9.0.0
+20250411105548_AddClickedOnSettingsAt,9.0.0
+20250411110022_AddClickedOnSettingsAtNullable,9.0.0
