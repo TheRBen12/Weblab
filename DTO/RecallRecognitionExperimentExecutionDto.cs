@@ -25,6 +25,9 @@ public class RecallRecognitionExperimentExecutionDto
     public int? TimeToClickFirstCategoryLink { get; set; }
     
     public bool UsedBreadcrumbs { get; set; }
+    
+    public string? SearchParameters { get; set; } = string.Empty;
+
 
 
     

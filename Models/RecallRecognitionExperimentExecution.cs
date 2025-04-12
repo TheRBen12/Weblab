@@ -26,5 +26,6 @@ public class RecallRecognitionExperimentExecution
 
     public int? TimeToClickFirstCategoryLink { get; set; }
 
+    public string? SearchParameters { get; set; } = string.Empty;
 
 }

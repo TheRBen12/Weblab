@@ -12,8 +12,8 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250411085142_AddTimeToFirstClickToHick")]
-    partial class AddTimeToFirstClickToHick
+    [Migration("20250411233027_AddInitalMigration")]
+    partial class AddInitalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace WebLab.Migrations
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("ClickedInDeletedItems")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Date")
                         .IsRequired()
@@ -1031,6 +1034,9 @@ namespace WebLab.Migrations
                     b.Property<int?>("NumberUsedSearchBar")
                         .HasColumnType("integer");
 
+                    b.Property<string>("SearchParameters")
+                        .HasColumnType("text");
+
                     b.Property<int?>("TimeToClickFirstCategoryLink")
                         .HasColumnType("integer");
 
@@ -1139,6 +1145,9 @@ namespace WebLab.Migrations
 
                     b.Property<bool?>("ClickedOnSettings")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("ClickedOnSettingsAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("LastUpdatedAt")
                         .HasColumnType("timestamp with time zone");

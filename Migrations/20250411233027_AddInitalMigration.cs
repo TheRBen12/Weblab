@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WebLab.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class AddInitalMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,6 +65,9 @@ namespace WebLab.Migrations
                     MegaDropDown = table.Column<bool>(type: "boolean", nullable: false),
                     SideMenuLeft = table.Column<bool>(type: "boolean", nullable: false),
                     SideMenuRight = table.Column<bool>(type: "boolean", nullable: false),
+                    MenuToggleIcon = table.Column<bool>(type: "boolean", nullable: false),
+                    MenuTitle = table.Column<bool>(type: "boolean", nullable: false),
+                    OffCanvasMenu = table.Column<bool>(type: "boolean", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     Breadcrumbs = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -207,6 +210,7 @@ namespace WebLab.Migrations
                     Receiver = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<string>(type: "text", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ClickedInDeletedItems = table.Column<bool>(type: "boolean", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -235,7 +239,8 @@ namespace WebLab.Migrations
                     ClickedOnHint = table.Column<bool>(type: "boolean", nullable: true),
                     NumberClickedOnHint = table.Column<int>(type: "integer", nullable: true),
                     WelcomeModalTipIndex = table.Column<int>(type: "integer", nullable: true),
-                    LastUpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    LastUpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ClickedOnSettingsAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -532,6 +537,39 @@ namespace WebLab.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ExperimentTestSelectionTimes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Time = table.Column<int>(type: "integer", nullable: false),
+                    ExperimentTestId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    SettingId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExperimentTestSelectionTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExperimentTestSelectionTimes_ExperimentTests_ExperimentTest~",
+                        column: x => x.ExperimentTestId,
+                        principalTable: "ExperimentTests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ExperimentTestSelectionTimes_UserSettings_SettingId",
+                        column: x => x.SettingId,
+                        principalTable: "UserSettings",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ExperimentTestSelectionTimes_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserNavigationTimes",
                 columns: table => new
                 {
@@ -669,7 +707,8 @@ namespace WebLab.Migrations
                     SecondChoiceAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ThirdChoiceAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     FirstClick = table.Column<string>(type: "text", nullable: false),
-                    UsedFilters = table.Column<string>(type: "text", nullable: false)
+                    UsedFilters = table.Column<string>(type: "text", nullable: false),
+                    TimeToFirstClick = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -701,7 +740,9 @@ namespace WebLab.Migrations
                     NumberUsedSearchBar = table.Column<int>(type: "integer", nullable: true),
                     TimeToClickFirstCategory = table.Column<int>(type: "integer", nullable: true),
                     TimeToClickSearchBar = table.Column<int>(type: "integer", nullable: true),
-                    TimeToClickShoppingCart = table.Column<int>(type: "integer", nullable: true)
+                    TimeToClickShoppingCart = table.Column<int>(type: "integer", nullable: true),
+                    NumberToggledMenu = table.Column<int>(type: "integer", nullable: true),
+                    TimeToFirstClick = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -729,7 +770,8 @@ namespace WebLab.Migrations
                     NumberUsedSearchBar = table.Column<int>(type: "integer", nullable: true),
                     TimeToClickSearchBar = table.Column<int>(type: "integer", nullable: true),
                     UsedBreadcrumbs = table.Column<bool>(type: "boolean", nullable: false),
-                    TimeToClickFirstCategoryLink = table.Column<int>(type: "integer", nullable: true)
+                    TimeToClickFirstCategoryLink = table.Column<int>(type: "integer", nullable: true),
+                    SearchParameters = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -816,6 +858,21 @@ namespace WebLab.Migrations
                 name: "IX_ExperimentTests_ExperimentId",
                 table: "ExperimentTests",
                 column: "ExperimentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExperimentTestSelectionTimes_ExperimentTestId",
+                table: "ExperimentTestSelectionTimes",
+                column: "ExperimentTestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExperimentTestSelectionTimes_SettingId",
+                table: "ExperimentTestSelectionTimes",
+                column: "SettingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExperimentTestSelectionTimes_UserId",
+                table: "ExperimentTestSelectionTimes",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FittsLawExperimentExecutions_ExperimentTestExecutionId",
@@ -947,6 +1004,9 @@ namespace WebLab.Migrations
 
             migrationBuilder.DropTable(
                 name: "ExperimentSelectionTimes");
+
+            migrationBuilder.DropTable(
+                name: "ExperimentTestSelectionTimes");
 
             migrationBuilder.DropTable(
                 name: "FittsLawExperimentExecutions");

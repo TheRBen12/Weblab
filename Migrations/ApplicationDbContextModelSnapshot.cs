@@ -1031,6 +1031,9 @@ namespace WebLab.Migrations
                     b.Property<int?>("NumberUsedSearchBar")
                         .HasColumnType("integer");
 
+                    b.Property<string>("SearchParameters")
+                        .HasColumnType("text");
+
                     b.Property<int?>("TimeToClickFirstCategoryLink")
                         .HasColumnType("integer");
 
