@@ -19,6 +19,9 @@ public class UserBehaviourDTO
     public bool ?ClickedOnHint { get; set; }
     
     public int ?NumberClickedOnHint { get; set; }
+    
+    public bool? ClickedOnSettingsAfterHintDisplayed { get; set; } = false;
+
 
     public int? WelcomeModalTipIndex { get; set; }
     

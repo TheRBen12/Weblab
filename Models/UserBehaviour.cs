@@ -30,8 +30,8 @@ public class UserBehaviour
     [Required]
     public  DateTimeOffset? LastUpdatedAt { get; set; }
     
-    
     public  DateTimeOffset? ClickedOnSettingsAt { get; set; }
-
-
+    
+    public bool? ClickedOnSettingsAfterHintDisplayed { get; set; } = false;
+    
 }
