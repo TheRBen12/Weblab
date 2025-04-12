@@ -71,6 +71,7 @@ public class ExperimentController(ApplicationDbContext context, IExperimentServi
             UsedBreadcrumbs = executionDto.UsedBreadcrumbs,
             NumberToggledMenu = executionDto.NumberToggledMenu,
             TimeToFirstClick = executionDto.TimeToFirstClick,
+            Clicks = executionDto.Clicks,
         };
 
         var result = context.MentalModelExperimentExecutions.Add(mentalModelExecution);

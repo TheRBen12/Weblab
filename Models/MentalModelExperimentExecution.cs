@@ -23,6 +23,9 @@ public class MentalModelExperimentExecution
 
     [MaxLength(255)] 
     public string FirstClick { get; set; } = string.Empty;
+    
+    public string? Clicks { get; set; } = string.Empty;
+
 
     public bool UsedFilter { get; set; }
     

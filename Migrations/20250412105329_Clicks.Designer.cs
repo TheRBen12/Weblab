@@ -12,15 +12,15 @@ using WebLab.Data;
 namespace WebLab.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250411233027_AddInitalMigration")]
-    partial class AddInitalMigration
+    [Migration("20250412105329_Clicks")]
+    partial class Clicks
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -581,6 +581,9 @@ namespace WebLab.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("ClickedRoutes")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Clicks")
                         .HasColumnType("text");
 
                     b.Property<double?>("ExecutionTime")

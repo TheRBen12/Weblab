@@ -17,6 +17,9 @@ public class MentalModelExperimentExecutionDto
 
     public string FirstClick { get; set; } = string.Empty;
     
+    public string? Clicks { get; set; } = string.Empty;
+
+    
     public bool UsedFilter { get; set; }
     
     public bool UsedBreadcrumbs { get; set; }

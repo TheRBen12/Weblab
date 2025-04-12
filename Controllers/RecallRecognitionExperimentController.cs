@@ -49,6 +49,7 @@ public class RecallRecognitionExperimentController(ApplicationDbContext context)
             TimeToClickFirstCategoryLink = executionDto.TimeToClickFirstCategoryLink,
             UsedBreadcrumbs = executionDto.UsedBreadcrumbs,
             SearchParameters = executionDto.SearchParameters,
+            TimeToClickSearchBar = executionDto.TimeToClickSearchBar,
         };
         var result = context.RecallRecognitionExperimentExecutions.Add(recallRecognitionExecution);
         await context.SaveChangesAsync();

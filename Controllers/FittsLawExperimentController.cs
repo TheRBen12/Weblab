@@ -11,7 +11,7 @@ public class FittsLawExperimentController(ApplicationDbContext context, IExperim
     private readonly ApplicationDbContext _context = context;
     private readonly IExperimentService _experimentService = experimentService;
     
-    [HttpPost]
+    [HttpPost("new")]
     public async Task<bool> Save([FromBody] FittsLawExperimentExecutionDto executionDto)
     {
         
