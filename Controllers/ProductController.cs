@@ -253,7 +253,7 @@ public class ProductController(ApplicationDbContext context, IProductService pro
         var randomProducts = await context.Products.Include(product => product.Specifications).
             ThenInclude(spec => spec.ProductProperty).
             Include(product => product.Type)
-            .Where(product => product.Type.Name == "Keypad")
+            .Where(product => product.Type.Name == "Smartphone")
             .OrderBy(p => Guid.NewGuid())
             .Take(3)
             .ToListAsync();
