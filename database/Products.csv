@@ -1,0 +1,137 @@
+14,Dell,Alienware Aurora R15,2899,4
+15,Asus,ROG Strix G35,2599,4
+16,Acer,Predator Orion 7000,2399,4
+17,MSI,MEG Trident X,2099,4
+18,Corsair,ONE i300,3499,4
+19,Medion,Erazer Engineer X20,1899,4
+20,Microsoft,Surface Studio 2+,4199,4
+43,Apple,iPhone 15 Pro,1299,6
+44,Apple,iPhone 14,1099,6
+45,Samsung,Galaxy S24 Ultra,1399,6
+46,Samsung,Galaxy S23,999,6
+47,Google,Pixel 8 Pro,1099,6
+48,Google,Pixel 7a,599,6
+49,Fairphone,Fairphone 5,699,6
+50,Fairphone,Fairphone 4,599,6
+51,Nokia,Nokia X30,549,6
+52,Nokia,Nokia G60,399,6
+53,Delonghi,Magnifica S ECAM 22.110.B,349.99,12
+54,Delonghi,Dinamica Plus ECAM 370.95.T,799,12
+55,Delonghi,PrimaDonna Soul ECAM 610.75.MB,1199.9,12
+56,Delonghi,Dedica Style EC685.M,199.5,12
+57,Delonghi,Eletta Cappuccino ECAM 44.660.B,649,12
+58,Philips,2200 Series EP2231/40 LatteGo,429.95,12
+59,Philips,3200 Series EP3246/70 LatteGo,549,12
+60,Philips,5400 Series EP5447/90 LatteGo,729.5,12
+61,Delonghi,Magnifica S ECAM 22.110.B,349.99,12
+62,Delonghi,Dinamica Plus ECAM 370.95.T,799,12
+63,Delonghi,PrimaDonna Soul ECAM 610.75.MB,1199.9,12
+64,Delonghi,Dedica Style EC685.M,199.5,12
+65,Delonghi,Eletta Cappuccino ECAM 44.660.B,649,12
+66,Philips,2200 Series EP2231/40 LatteGo,429.95,12
+67,Philips,3200 Series EP3246/70 LatteGo,549,12
+68,Philips,5400 Series EP5447/90 LatteGo,729.5,12
+69,Delonghi,Magnifica S ECAM 22.110.B,349.99,12
+70,Apple,MacBook Pro 14 M3,2399,3
+71,Apple,MacBook Pro 16 M3,2899,3
+1,Apple,MacBook Pro 14,2135,3
+2,Lenovo,ThinkPad X1 Carbon,1899,3
+3,HP,Spectre x360,1649,3
+72,Apple,MacBook Air 13 M2,1499,3
+73,Apple,MacBook Air 15 M2,1799,3
+74,Apple,MacBook Pro 13 M2,1999,3
+4,Dell,XPS 13 Plus,1995,3
+5,Asus,ROG Zephyrus G14,1799,3
+6,Acer,Swift 5,1399,3
+7,Microsoft,Surface Laptop 5,1599,3
+8,Razer,Blade 15,2499,3
+9,Samsung,Galaxy Book 3 Pro,1749,3
+10,MSI,Prestige 14 Evo,1499,3
+11,Apple,Mac Studio M2 Ultra,3999,4
+12,Lenovo,Legion T7,2499,4
+13,HP,OMEN 45L,2299,4
+85,HP,HP Spectre x370,1340,3
+86,HP,x380,1400,3
+87,HP,Z1,1560,4
+88,Lenovo,Thinkpad,1230,3
+89,HP,Tower Z1,1670,4
+90,Apple,MacBook Pro 15,2135,3
+91,Dell,Dell XP 13 Plus,1654,3
+92,Dell,Surface Pro,789,3
+76,Apple,Apple Magic Keyboard mit Touch ID,159,15
+77,Logitech,Logitech MX Keys,109,15
+81,Philips,Philips SPT6314,29,15
+80,Philips,Philips SPK8614,39,15
+79,Logitech,Logitech G915 TKL,229,15
+78,Logitech,Logitech K380,49,15
+84,Logitech,Logitech Craft,149,15
+83,Apple,Apple Smart Keyboard Folio,199,15
+82,Philips,Philips SPK9264,59,15
+75,Apple,Apple Magic Keyboard,129,15
+93,Logitech,Logitech MX Keys 15,67,15
+94,Karotten,Karotten,1.99,22
+95,Karotten,Karotten,2.49,22
+96,Kartoffeln,Kartoffeln,2.19,22
+97,Kartoffeln,Kartoffeln,2.39,22
+98,Lauch,Lauch,1.49,22
+99,Lauch,Lauch,1.69,22
+100,Zwiebeln,Zwiebeln,1.59,22
+101,Zwiebeln,Zwiebeln,1.79,22
+102,Tomaten,Tomaten,2.99,22
+103,Tomaten,Tomaten,3.29,22
+104,Knoblauch,Knoblauch,1.89,22
+105,Knoblauch,Knoblauch,1.99,22
+106,Linsen,Linsen,2.49,22
+107,Linsen,Linsen,2.69,22
+110,Salat,Salat,1.79,22
+111,Salat,Salat,1.89,22
+122,Walnuss,Walnuss,3.99,24
+123,Walnuss,Walnuss,4.29,24
+124,Kaffee,Kaffee,5.99,26
+125,Kaffee,Kaffee,6.49,26
+126,Öl,Knoblauch Öl,3.49,25
+127,Öl,Knoblauch Öl,3.99,25
+128,Karotten,Karotten,2.19,22
+129,Kartoffeln,Kartoffeln,2.59,22
+130,Lauch,Lauch,1.59,22
+131,Zwiebeln,Zwiebeln,1.69,22
+132,Tomaten,Tomaten,3.09,22
+133,Knoblauch,Knoblauch,2.09,22
+119,Trauben,Trauben,3.19,29
+118,Trauben,Trauben,2.99,29
+116,Birne,Birne,2.59,29
+117,Birne,Birne,2.79,29
+115,Apfel,Apfel,2.39,29
+114,Apfel,Apfel,2.19,29
+113,Bananen,Bananen,2.49,29
+112,Bananen,Bananen,2.39,29
+109,Broccoli,Broccoli,2.59,22
+108,Broccoli,Broccoli,2.29,22
+121,Bio-Classic,Brot,2.69,22
+120,Bio-Classic,Brot,2.49,22
+134,Linsen,Linsen,2.79,22
+136,Salat,Salat,1.99,22
+137,Banane,Banane,2.59,22
+138,Apfel,Apfel,2.49,22
+139,Birne,Birne,2.89,22
+140,Trauben,Trauben,3.39,22
+142,Walnuss,Walnuss,4.59,24
+143,Kaffee,Kaffee,6.99,26
+144,Öl,Knoblauch Öl,4.19,25
+145,Classic,Schokolade Classic Vollmilch,2.49,27
+146,Bio-Classic,Schokolade Bio Classic Zartbitter,2.99,27
+147,Bio-Classic,Schokolade Bio Classic Haselnuss,3.29,27
+148,Sellerie,Fresca Sellerie,2.5,22
+149,Bio-Classic,Bio Roggenbrot,2.89,28
+150,Bio-Classic,Bio Dinkelbrot,3.29,28
+151,Bio-Classic,Bio Vollkornbrot,3.59,28
+152,Bio-Classic,Bio Mehrkornbrot,3.79,28
+153,SS-Classic,Spaghetti,1.49,30
+154,S-Classic,Spaghetti,1.69,30
+155,SS-Classic,Spaghetti,1.89,30
+156,Classic,Penne,1.59,31
+157,Classic,Penne,1.79,31
+158,Classic,Penne,1.99,31
+135,Broccoli,Broccoli,2.69,22
+141,Bio-Classic,Brot,2.89,22
+159,Samsung,Galaxy A51,450,6

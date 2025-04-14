@@ -1,0 +1,22 @@
+1,alice@example.com,Meeting Reminder,Don't forget our meeting tomorrow.,bob@example.com,2024-03-10
+2,charlie@example.com,Project Update,The project is on track for delivery.,alice@example.com,2024-03-09
+3,bob@example.com,Invoice Request,Please send me the latest invoice.,charlie@example.com,2024-03-08
+4,david@example.com,Happy Birthday!,Wishing you a great year ahead!,alice@example.com,2024-03-07
+5,eve@example.com,Security Alert,Unusual login detected. Please check your account.,bob@example.com,2024-03-06
+6,frank@example.com,Dinner Plans,Are we still on for dinner this weekend?,david@example.com,2024-03-05
+7,grace@example.com,New Job Offer,Check out this new job opportunity I found.,eve@example.com,2024-03-04
+8,alice@example.com,Re: Weekend Trip,Sounds great! Let's finalize the details.,frank@example.com,2024-03-03
+9,bob@example.com,Tech Conference,The conference next week looks interesting.,grace@example.com,2024-03-02
+10,charlie@example.com,Software Update,New update available. Please review.,eve@example.com,2024-03-01
+11,david@example.com,Document Submission,Have you submitted the document yet?,alice@example.com,2024-02-28
+12,eve@example.com,Weekend Plans,Want to catch up this weekend?,bob@example.com,2024-02-27
+13,frank@example.com,Team Meeting,Agenda for the team meeting is attached.,charlie@example.com,2024-02-26
+14,grace@example.com,Feedback Request,Can you review this report and provide feedback?,david@example.com,2024-02-25
+15,alice@example.com,Flight Booking,I booked my flight. Let me know your schedule.,eve@example.com,2024-02-24
+16,bob@example.com,Training Session,Training session details attached.,frank@example.com,2024-02-23
+17,charlie@example.com,Bug Report,A new bug has been found in the system.,grace@example.com,2024-02-22
+18,david@example.com,Partnership Inquiry,Let's discuss potential collaboration.,bob@example.com,2024-02-21
+19,eve@example.com,Discount Offer,Exclusive discount for our premium members.,alice@example.com,2024-02-20
+20,frank@example.com,Job Application,I have applied for the position. Hoping for good news.,charlie@example.com,2024-02-19
+21,grace@example.com,Happy New Year!,Wishing you success and happiness this year!,david@example.com,2024-02-18
+22,alice@example.com,Subscription Renewal,Your subscription is about to expire. Renew now!,bob@example.com,2024-02-17
