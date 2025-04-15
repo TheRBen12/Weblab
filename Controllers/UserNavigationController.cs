@@ -31,6 +31,7 @@ public class UserNavigationController(ApplicationDbContext context) : BaseContro
             StartedNavigation = userNavigationTimeDto.StartedNavigation,
             UserSetting = userSetting,
             NumberClicks = userNavigationTimeDto.NumberClicks,
+            UsedRoutes = userNavigationTimeDto.UsedRoutes,
         };
 
         if (userNavigationTimeDto.FromExperimentId != null)

@@ -22,5 +22,7 @@ public class UserNavigationTime
 
     [Required] public int NumberClicks { get; set; } = 0;
 
+    public string? UsedRoutes { get; set; } = string.Empty;
+
 
 }

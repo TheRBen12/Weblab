@@ -17,4 +17,6 @@ public class UserNavigationTimeDto
     public int UserSettingId { get; set; }
 
     public int NumberClicks { get; set; }
+
+    public string? UsedRoutes { get; set; } = string.Empty;
 }
