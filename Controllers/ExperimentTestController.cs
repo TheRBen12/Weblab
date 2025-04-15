@@ -18,6 +18,16 @@ public class ExperimentTestController(ApplicationDbContext context) : BaseContro
             .ToListAsync();
         return experimentTests;
     }
+    
+    
+    [HttpGet("all")]
+    public async Task<IEnumerable<ExperimentTest>> FindAllExperimentTests()
+    {
+        var experimentTests = await _context.ExperimentTests
+            .ToListAsync();
+        return experimentTests; 
+    }
+    
 
     [HttpGet("test")]
     public async Task<ExperimentTest?> GetExperimentTestById(int experimentTestId)
