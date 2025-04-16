@@ -29,6 +29,10 @@ public class RecallRecognitionExperimentExecutionDto
     public string? SearchParameters { get; set; } = string.Empty;
 
     public string? FirstClick { get; set; } = string.Empty;
+    
+    
+    public string? UsedFilter { get; set; } = string.Empty;
+
 
 
     
