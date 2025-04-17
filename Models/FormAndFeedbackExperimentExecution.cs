@@ -16,6 +16,9 @@ public class FormAndFeedbackExperimentExecution
     
     
     [Required] public int NumberErrors { get; set; }
+    
+    public string? ValidationDates { get; set; } = String.Empty;
+
 
     
 }

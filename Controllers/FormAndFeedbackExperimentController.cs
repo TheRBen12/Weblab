@@ -33,6 +33,7 @@ public class FormAndFeedbackExperimentController(ApplicationDbContext context, I
             ExecutionTime = formAndFeedbackExperimentDto.ExecutionTime,
             NumberFormValidations = formAndFeedbackExperimentDto.NumberFormValidations,
             NumberErrors = formAndFeedbackExperimentDto.NumberErrors,
+            ValidationDates = formAndFeedbackExperimentDto.ValidationDates,
         };
 
         context.FormAndFeedbackExperimentExecutions.AddAsync(result);

@@ -16,6 +16,8 @@ public class FormAndFeedbackExperimentExecutionDto
 
 
     public DateTimeOffset FinishedExecutionAt { get; set; }
-    
-    
+
+    public string? ValidationDates { get; set; } = String.Empty;
+
+
 }
