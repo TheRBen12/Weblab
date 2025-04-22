@@ -32,6 +32,9 @@ public class RecallRecognitionExperimentExecutionDto
     
     
     public string? UsedFilter { get; set; } = string.Empty;
+    
+    public int? TimeToClickShoppingCart { get; set; }
+
 
 
 
