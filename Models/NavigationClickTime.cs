@@ -9,5 +9,6 @@ public class NavigationClickTime
     [Required] public string SourceUrl { get; set; }
     [Required] public string TargetUrl { get; set; }
     [Required] public int Time { get; set; }
+    [Required] public int NumberFinishedExecutions { get; set; }
 
 }
