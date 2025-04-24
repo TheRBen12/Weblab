@@ -63,5 +63,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<ExperimentSelectionTime> ExperimentSelectionTimes { get; set; }
     
     public DbSet<ExperimentTestSelectionTime> ExperimentTestSelectionTimes { get; set; }
-    
+    public DbSet<NavigationClickTime> NavigationClickTimes { get; set; }
+
 }
